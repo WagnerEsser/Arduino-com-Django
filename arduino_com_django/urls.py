@@ -13,13 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, patterns
+from django.conf.urls import include, url
 from django.contrib import admin
+from arduino import views
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.index, name='index'),
+    url(r'^arduino/', include('arduino.urls', namespace="arduino")),
 ]
-
-urlpatterns += patterns('arduino.views',
-    (r'^$','DEF_FUNCTION'),
-)

@@ -52,10 +52,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'arduino_com_django.urls'
 
-# TEMPLATE_DIRS = (
-#     "/home/TCC/arduino_com_django/arduino/templates"
-# )
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -110,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
