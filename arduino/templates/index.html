@@ -1,6 +1,28 @@
 <html>
-    <body>
-        <h1>Arduino</h1>
-    
-    </body>
+<body>
+
+<h1>Coleta de Dados com Arduino!</h1>
+
+<table style="width:100%">
+    <tr>
+        <th>ID</th>
+        <th>Data da coleta</th>
+        <th>Equipamento</th>
+        <th>ID do Controlador</th>
+        <th>Temperatura</th>
+        <th>Umidade</th>
+    </tr>
+    {% for coleta in dados %}
+        <tr>
+            <td>{{ coleta.id }}</td>
+            <td>{{ coleta.data }}</td>
+            <td>{{ coleta.equipamento }}</td>
+            <td>{{ coleta.id_controlador }}</td>
+            <td>{{ coleta.temperatura }}</td>
+            <td>{{ coleta.umidade }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
 </html>
