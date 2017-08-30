@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment">
+
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="three wide column">
+                <a href="{% url 'issem:index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
+
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    <h1><i class="user icon"></i> {{ usuario.get_full_name }}</h1>
+                    {% if usuario.groups.all.0.name == "Dependente" %}
+                        {% if segurado %}
+                            <h3>Segurado(a): "{{ segurado.get_full_name }}"</h3>
+                        {% else %}
+                            <h3 class="issem-red">(Sem segurado associado)</h3>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="three wide column">
+                {% if usuario.groups.all.0.name == "Administrativo" or usuario.groups.all.0.name == "Tecnico" %}
+
+                    {% if usuario_logado == usuario.id or request.session.administrador %}
+                        <a class="ui right floated labeled icon button blue"
+                           href="{% url 'issem:edita_servidor' usuario.id %}">
+                            <i class="edit icon"></i> Alterar Perfil
+                        </a>
+                    {% endif %}
+
+                {% elif usuario.groups.all.0.name == "Segurado" %}
+
+                    <a class="ui right floated labeled icon button blue"
+                       href="{% url 'issem:edita_segurado' usuario.id %}">
+                        <i class="edit icon"></i> Alterar Perfil
+                    </a>
+
+                {% else %}
+                    <div class="ui right floated {% if request.session.administrador %}vertical{% endif %} buttons">
+                        <a class="ui right floated labeled icon button blue"
+                           href="{% url 'issem:edita_dependente' usuario.id %}">
+                            <i class="edit icon"></i> Alterar Perfil
+                        </a>
+                        {% if request.session.administrador %}
+                            <a class="ui right floated labeled icon button"
+                               href="{% url 'issem:seleciona_segurado' id %}">
+                                <i class="exchange icon"></i> Transferir para outro segurado
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="ui form sixteen wide column issem-table-form">
+                {% include 'estatico/perfil_pessoa.html' %}
+
+                {% if usuario.groups.all.0.name == "Administrativo" or usuario.groups.all.0.name == "Tecnico" %}
+
+                    {% include 'estatico/perfil_servidor.html' %}
+
+                {% elif usuario.groups.all.0.name == "Segurado" %}
+
+                    {% include 'estatico/perfil_segurado.html' %}
+
+                    <h4 class="ui dividing header red">Dependente(s)</h4>
+                    {% if dependentes %}
+                        {% for dependente in dependentes %}
+                            <div class="ui horizontal list issem-margin-rigth">
+                                <div class="item">
+                                    <i class="big user icon"></i>
+                                    <div class="content">
+                                        <div class="ui sub header">
+                                            <a href="{% url 'issem:perfil' dependente.id %}">{{ dependente.get_full_name }}</a>
+                                        </div>
+                                        <strong> CPF: </strong>
+                                        {{ dependente.cpf }}<br/>
+                                        <strong>Tipo: </strong>
+                                        {{ dependente.tipo.descricao }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="ui grid center aligned">
+                            <div class="row">
+                                <a href="{% url 'issem:cad_dependente_segurado' id %}" class="ui button green">Associar
+                                    dependente</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="sixteen wide column issem-div-message">
+                            <div class="ui yellow message">
+                                <div class="header">
+                                    Não existem dependentes cadastrados!
+                                </div>
+                            </div>
+                        </div>
+                        {% if usuario_logado != usuario.id %}
+                            <div class="ui grid center aligned">
+                                <div class="row">
+                                    <a href="{% url 'issem:cad_dependente_segurado' id %}" class="ui button green">Associar
+                                        dependente</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% elif usuario.groups.all.0.name == "Dependente" %}
+                    {% include 'estatico/perfil_dependente.html' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

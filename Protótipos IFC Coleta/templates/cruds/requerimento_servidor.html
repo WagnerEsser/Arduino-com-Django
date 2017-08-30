@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block body_tag %}
+    <body onload="calendar_input();">
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
+
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="three wide column">
+                <a href="{% url 'issem:index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
+
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    {% if not id %}
+                        <h1><i class="plus icon"></i> Requerimento: {{ beneficio_descricao }}</h1>
+                    {% else %}
+                        <h1><i class="edit icon"></i> Edição do Requerimento: {{ beneficio_descricao }}</h1>
+                        <p>{{ edicao_define_agendamento }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="three wide column">
+                {% if id %}
+                    <a class="ui right floated labeled icon button red abrirModalConfirmacao" href="#">
+                        <i class="trash icon"></i> Excluir
+                    </a>
+                {% endif %}
+            </div>
+
+            <div class="sixteen wide column issem-table-form">
+
+                {% if not var_controle %}
+                    <form class="ui form" id="RequerimentoForm" method="post"
+                          action="{% url 'issem:cad_requerimento_servidor' id_beneficio %}">
+                {% else %}
+                    <form class="ui form" id="RequerimentoForm" method="post"
+                          action="{% url 'issem:define_agendamento' id_requerimento %}">
+                {% endif %}
+                {% csrf_token %}
+
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                    <input type="hidden" name="id_agendamento" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                    <input type="hidden" name="id_agendamento" value="{{ id_agendamento }}">
+                {% endif %}
+
+                <input id="id_beneficio" name="beneficio" type="hidden" style="display:none"
+                       value="{{ id_beneficio }}"/>
+
+                <input id="id_servidor" name="servidor" type="hidden" style="display:none" value="{{ id_usuario }}"/>
+
+                <input id="id_possui_agendamento" name="possui_agendamento" type="hidden" value="True"/>
+
+                <div class="fields">
+                    <div class="five wide field"></div>
+                    <div class="six wide field">
+                        <label>Segurado<i class="asterisk icon red"></i></label>
+                        {% if agendamento_sem_requerimento %}
+                            <select class="ui fluid search selection dropdown" id="id_segurado" name="segurado">
+                                <option value="">---------</option>
+                                <option value="{{ segurado_id }}" selected="selected">{{ segurado_nome }}</option>
+                            </select>
+                        {% else %}
+                            {{ form_requerimento.segurado }}
+                        {% endif %}
+                        {% if form_requerimento.segurado.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form_requerimento.segurado.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="five wide field"></div>
+                </div>
+                <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>Data início do afastamento <i class="asterisk icon red"></i></label>
+                        {{ form_requerimento.data_inicio_afastamento }}
+                        {% if form_requerimento.data_inicio_afastamento.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form_requerimento.data_inicio_afastamento.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>Data final do afastamento <i class="asterisk icon red"></i></label>
+                        {{ form_requerimento.data_final_afastamento }}
+                        {% if form_requerimento.data_final_afastamento.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form_requerimento.data_final_afastamento.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field"></div>
+                </div>
+                <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>Data da perícia<i class="asterisk icon red"></i></label>
+                        {{ form_agendamento.data_pericia }}
+                        {% if form_agendamento.data_pericia.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form_agendamento.data_pericia.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>Hora da perícia <i class="asterisk icon red"></i></label>
+                        <div class="hora">
+                            {{ form_agendamento.hora_pericia }}
+                            {% if form_agendamento.hora_pericia.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form_agendamento.hora_pericia.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="four wide field"></div>
+                </div>
+
+                {% include 'blocos/buttons_form.html' %}
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    {% if id %}
+        {#========== MODAL ==========#}
+        <div class="ui small modal modalConfirmacao">
+            <i class="close icon"></i>
+            <div class="ui icon header">
+                <i class="trash icon"></i>
+                Deseja realmente excluir?
+            </div>
+            <div class="ui actions">
+                <div class="ui green ok inverted button">
+                    Não
+                </div>
+                <a class="ui red ok inverted button" href="{% url 'issem:deleta_requerimento' id id_agendamento %}">
+                    <i class="remove icon"></i>
+                    Sim
+                </a>
+            </div>
+        </div>
+        {#========== / MODAL ==========#}
+    {% endif %}
+
+{% endblock %}

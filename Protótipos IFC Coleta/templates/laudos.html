@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
+
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="three wide column">
+                <a href="{% url 'issem:index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
+
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    <h1><i class="list icon"></i> Laudos Médicos</h1>
+                </div>
+            </div>
+
+            <div class="three wide column">
+                <a href="{% url 'issem:cad_laudo' %}">
+                    <div class="ui right floated icon button green">
+                        <i class="plus icon"></i> Adicionar Novo
+                    </div>
+                </a>
+            </div>
+
+            <div class="ui centered row">
+                <br/>
+                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_laudos' %}">
+                    <div class="ui right aligned category search">
+                        <div class="ui icon input">
+                            <i class="search icon"></i>
+                            <input type="text" id="id_campo" name="filtro" placeholder="Pesquisar">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            {% if dados %}
+                <table class="ui celled table issem-table-form">
+                    <thead>
+                    <tr>
+                        <th>Segurado</th>
+                        <th>Benefício</th>
+                        <th>CID</th>
+                        <th>Observações</th>
+                        <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dado in dados %}
+                        <tr>
+                            <td>João</td>
+                            <td>Benefício por incapacidade</td>
+                            <td>Gripe</td>
+                            <td>-------</td>
+                            <td>
+                                <a href="{% url "issem:visualizar_laudo" 1 %}">
+                                    <i class="eye icon"></i> Visualizar
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                </table>
+
+                {% include 'blocos/pagination.html' %}
+            {% else %}
+                <div class="sixteen wide column issem-div-message">
+                    <br/>
+                    <div class="ui yellow message">
+                        <div class="header">
+                            Não existem laudos cadastrados
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

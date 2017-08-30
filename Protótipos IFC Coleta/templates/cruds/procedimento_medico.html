@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
+
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="three wide column">
+                <a href="{% url 'issem:lista_procedimentos_medicos' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
+
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    {% if not id %}
+                        <h1><i class="plus icon"></i> Cadastro de Procedimento Médico</h1>
+                    {% else %}
+                        <h1><i class="edit icon"></i> Edição de Procedimento Médico</h1>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="three wide column">
+                {% if id %}
+                    <a class="ui right floated labeled icon button red abrirModalConfirmacao" href="#">
+                        <i class="trash icon"></i> Excluir
+                    </a>
+                {% endif %}
+            </div>
+
+            <div class="sixteen wide column issem-table-form">
+                <form class="ui form" id="ProcedimentoMedicoForm" method="post"
+                      action="{% url 'issem:cad_procedimento_medico' %}">
+                    {% csrf_token %}
+
+                    {% if not id %}
+                        <input type="hidden" name="id" value="">
+                    {% else %}
+                        <input type="hidden" name="id" value="{{ id }}">
+                    {% endif %}
+
+                    <div class="fields">
+                        <div class="two wide field"></div>
+                        <div class="two wide field">
+                            <label>Código:</label>
+                            <div class="somente_numeros">
+                                {{ form.codigo }}
+                                {% if form.codigo.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.codigo.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="six wide field">
+                            <label>Procedimento:</label>
+                            {{ form.procedimento }}
+                            {% if form.procedimento.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.procedimento.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Porte:</label>
+                            {{ form.porte }}
+                            {% if form.porte.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.porte.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Valor:</label>
+                            <div class="somente_numeros">
+                                {{ form.valor }}
+                                {% if form.valor.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.valor.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="fields">
+                        <div class="two wide field"></div>
+                        <div class="two wide field">
+                            <label>Valor Porte:</label>
+                            {{ form.valor_porte }}
+                            {% if form.valor_porte.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.valor_porte.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Valor UCO:</label>
+                            {{ form.valor_uco }}
+                            {% if form.valor_uco.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.valor_uco.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Auxiliares:</label>
+                            {{ form.auxiliares }}
+                            {% if form.auxiliares.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.auxiliares.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Porte Anestésico:</label>
+                            {{ form.porte_anestesico }}
+                            {% if form.porte_anestesico.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.porte_anestesico.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Quantidade filme:</label>
+                            {{ form.qtd_filme }}
+                            {% if form.qtd_filme.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.qtd_filme.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Incidência:</label>
+                            {{ form.incidencia }}
+                            {% if form.incidencia.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.incidencia.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% include 'blocos/buttons_form.html' %}
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    {% if id %}
+        {#========== MODAL ==========#}
+        <div class="ui small modal modalConfirmacao">
+            <i class="close icon"></i>
+            <div class="ui icon header">
+                <i class="trash icon"></i>
+                Deseja realmente excluir?
+            </div>
+            <div class="ui actions">
+                <div class="ui green ok inverted button">
+                    Não
+                </div>
+                <a class="ui red ok inverted button" href="{% url 'issem:deleta_procedimento_medico' id %}">
+                    <i class="remove icon"></i>
+                    Sim
+                </a>
+            </div>
+        </div>
+        {#========== / MODAL ==========#}
+    {% endif %}
+
+{% endblock %}

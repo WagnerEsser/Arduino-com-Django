@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block body_tag %}
+    <body onload="calendar_input(dependente=true); get_cidade_natural(); get_cidade_atual()">
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment">
+
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="three wide column">
+                <a href="{% url 'issem:funcionario' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
+
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    {% if not id %}
+                        <h1><i class="plus icon"></i> Cadastro de Dependente</h1>
+                        {% if segurado %}
+                            <h3>Para o segurado(a): "{{ segurado.get_full_name }}"</h3>
+                        {% endif %}
+                    {% else %}
+                        <h1><i class="edit icon"></i> Edição de Dependente</h1>
+                        {% if segurado %}
+                            <h3>Segurado(a): "{{ segurado.get_full_name }}"</h3>
+                        {% else %}
+                            <h3 class="issem-red">(Sem segurado associado)</h3>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="three wide column">
+                {% if id and request.session.administrador %}
+                    <div class="ui right floated vertical buttons">
+                        <a href="{% url 'issem:edita_senha' id id_group_user %}"
+                           class="ui labeled icon button secondary">
+                            <i class="key icon"></i> Alterar Senha
+                        </a>
+                        <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
+                            <i class="trash icon"></i> Excluir
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="sixteen wide column issem-table-form">
+                {% if id_segurado %}
+                    <form class="ui form" id="DependenteForm" method="post"
+                          action="{% url 'issem:cad_dependente_segurado' id_segurado %}">
+                {% else %}
+                    <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:cad_dependente' %}">
+                {% endif %}
+
+                {% include 'blocos/formulario_pessoa.html' %}
+
+                <h4 class="ui dividing red header">Dados específicos do Dependente</h4>
+                <div class="fields">
+                    <div class="six wide field">
+                        <label>Tipo de Dependente <i class="asterisk icon red"></i></label>
+                        {{ form.tipo }}
+                        {% if form.tipo.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.tipo.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="five wide field">
+                        <label>Data de início <i class="asterisk icon red"></i></label>
+                        <div class="data">
+                            {{ form.data_inicial }}
+                            {% if form.data_inicial.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.data_inicial.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="five wide field">
+                        <label>Data de término <i class="asterisk icon red"></i></label>
+                        <div class="data">
+                            {{ form.data_final }}
+                            {% if form.data_final.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.data_final.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if segurado %}
+                    <input type="hidden" name="id_segurado" value="{{ segurado.id }}"/>
+                {% else %}
+                    <input type="hidden" name="id_segurado" value="#"/>
+                {% endif %}
+
+                {% include 'blocos/buttons_form.html' %}
+                </form>
+
+            </div>
+        </div>
+
+        {% if id %}
+            {#========== MODAL ==========#}
+            <div class="ui small modal modalConfirmacao">
+                <i class="close icon"></i>
+                <div class="ui icon header">
+                    <i class="trash icon"></i>
+                    Deseja realmente excluir?
+                </div>
+                <div class="ui actions">
+                    <div class="ui green ok inverted button">
+                        Não
+                    </div>
+                    <a class="ui red ok inverted button" href="{% url 'issem:deleta_dependente' id %}">
+                        <i class="remove icon"></i>
+                        Sim
+                    </a>
+                </div>
+            </div>
+            {#========== / MODAL ==========#}
+        {% endif %}
+
+{% endblock %}

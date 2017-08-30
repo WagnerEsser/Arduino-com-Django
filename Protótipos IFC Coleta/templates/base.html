@@ -1,0 +1,136 @@
+{% load static %}
+{% load sistema %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ISSEM</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="{% static 'images/issem.png' %}" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/base.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/jquery-ui.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'semanticui/dist/semantic.css' %}"/>
+</head>
+
+{% block body_tag %}
+    <body>
+{% endblock %}
+
+<header>
+    <div class="ui fluid">
+        <div class="ui container">
+            <div class="ui grid">
+                <div class="two wide column">
+                    <a href="{% url 'issem:index' %}"><img src="{% static 'images/issem.png' %}"/></a>
+                </div>
+                <div class="eleven wide column">
+                    <br/>
+                    <h2 class="ui header red">
+                        <a href="{% url 'issem:index' %}" class="issem-title">ISSEM</a>
+                        <div class="sub header">
+                            INSTITUTO DE SEGURIDADE DOS SERVIDORES MUNICIPAIS
+                        </div>
+                    </h2>
+                    <br/>
+                </div>
+                <div class="three wide column right aligned">
+                    <div class="ui grid">
+                        <div class="sixteen wide column">
+                            <a href="{% url 'issem:lista_contatos_issem' %}">
+                                <i class="text mail outline icon"></i>
+                                Contato
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="ui menu large">
+    <div class="ui container">
+        <a href="{% url 'issem:index' %}" class="item issem-icon"><i class="icon large home"></i> &ensp;Início</a>
+        {% if not user.is_anonymous %}
+            <div class="right menu">
+                {% if request.session.administrador %}
+                    <div class="ui item issem-red">
+                        Administrador geral
+                    </div>
+                {% endif %}
+                {% if not user.is_superuser %}
+                    <div class="ui pointing dropdown link item">
+                        <i class="ui right large users icon"></i>
+                        {% if request.session.grupo_sessao == 'Tecnico' %}
+                            Técnico
+                        {% endif %}
+                        {% if request.session.grupo_sessao == "Administrativo" %}
+                            Administrativo
+                        {% endif %}
+                        {% if request.session.grupo_sessao == "Segurado" %}
+                            Segurado
+                        {% endif %}
+                        <i class="angle down icon"></i>
+                        <div class="menu">
+                            <a href="{% url 'issem:escolha_papel' %}" class="item">
+                                <i class="exchange icon"></i>
+                                Trocar Acesso
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="ui pointing dropdown link item">
+                    {% if request.session.grupo_sessao == 'Tecnico' %}
+                        <i class="ui right large doctor icon"></i>
+                    {% elif request.session.grupo_sessao == 'Administrativo' %}
+                        <i class="ui right large user icon"></i>
+                    {% elif request.session.grupo_sessao == 'Segurado' %}
+                        <i class="ui right large child icon"></i>
+                    {% endif %}
+                    {{ user.get_full_name }}
+                    <i class="angle down icon"></i>
+                    <div class="menu">
+                        {% if not user.is_superuser %}
+                            <a href="{% url 'issem:perfil' id=user.id %}" class="item">
+                                <i class="user icon"></i>
+                                Meu Perfil
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'issem:logout' %}" class="item">
+                            <i class="sign out icon"></i>
+                            Sair
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+
+
+<section>
+    <div class="ui container issem-content">
+        {% block body_block %}
+        {% endblock %}
+    </div>
+</section>
+
+<footer class="ui inverted vertical segment footer">
+    <div class="ui centered grid">
+        <div class="sixteen wide column center aligned">
+            {% informacoes_rodape %}
+        </div>
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.mask.js' %}"></script>
+<script type="text/javascript" src="{% static 'semanticui/dist/semantic.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/issem.js' %}"></script>
+<!-- /SCRIPTS -->
+
+</body>
+</html>

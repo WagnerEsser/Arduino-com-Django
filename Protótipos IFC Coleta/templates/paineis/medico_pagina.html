@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+
+        {% if msg %}
+            <div class="sixteen wide column">
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="treatment icon"></i> Perícias</h3>
+
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <a href="{% url 'issem:agenda_medica' %}" class="item">Agenda <i class="calendar icon"></i></a>
+                        <div class="item">Choice 1</div>
+                        <div class="item">Choice 2</div>
+                        <div class="item">Choice 3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="doctor icon"></i> Laudo Médico</h3>
+
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <a href="{% url 'issem:cad_laudo' %}" class="item"><i class="ui plus icon"></i> Novo</a>
+                        <a href="{% url 'issem:lista_laudos' %}" class="item"><i class="ui list icon"></i> Laudos médicos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="bar chart icon"></i> Analytics</h3>
+
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <div class="item">Choice 1</div>
+                        <div class="item">Choice 2</div>
+                        <div class="item">Choice 3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
