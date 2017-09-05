@@ -1,0 +1,33 @@
+{
+  "umidade": {
+    "projeto": "nome_projeto",
+    "coletas": [
+      {
+        "id_controlador": "999999",
+        "id_coleta": "888888",
+        "status": "ativado",
+        "token": "456jfg46ydf26dgf",
+        "contexto": "Fábrica de Software",
+        "sensores": [
+          {
+            "unidade_medida": "ºC",
+            "descricao": "Sensor de Temperatura",
+            "local": "58.564972 -52.917455",
+            "dados": [
+              {
+                "data_hora": "01/01/2017",
+                "dado": "15ºC"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "temperatura":{},
+  "pluviosidade":{},
+  "anemometro":{},
+  "direcao_vento":{},
+  "umidade_solo":{},
+  "barometro":{}
+}
