@@ -3,7 +3,7 @@
 <head>
     <title>IFC Coleta</title>
     <meta charset="UTF-8">
-    <link rel="icon" href="images/logo.png'" type="image/x-icon"/>
+    <link rel="icon" href="images/favicon.png" type="image/x-icon"/>
     <link type="text/css" rel="stylesheet" href="css/base.css"/>
     <link type="text/css" rel="stylesheet" href="css/jquery-ui.css"/>
     <link type="text/css" rel="stylesheet" href="semantic/semantic.css"/>
@@ -21,12 +21,12 @@
                 </div>
                 <div class="eleven wide column">
                     <br/>
-                    <h2 class="ui header red">
+                    <div class="ui large header red">
                         <a href="index.html" class="issem-title">IFC Coleta</a>
                         <div class="sub header">
                             Sistema para coleta de dados dentro da Internet das Coisas
                         </div>
-                    </h2>
+                    </div>
                     <br/>
                 </div>
                 <div class="three wide column right aligned">
@@ -46,7 +46,8 @@
 
 <nav class="ui menu large">
     <div class="ui container">
-        <a href="index.html" class="item issem-icon"><i class="icon large home"></i> &ensp;Início</a>
+        <a href="index.html" class="item issem-icon"><i class="icon large home"></i></a>
+        <a href="index.html" class="item issem-icon"><i class="icon large clone"></i> &ensp;Seus Projetos</a>
         <a href="novo_projeto.html" class="item issem-icon"><i class="icon large plus"></i> &ensp;Novo Projeto</a>
         <a href="nova_coleta.html" class="item issem-icon"><i class="icon large plus"></i> &ensp;Nova Coleta</a>
         <a href="sensores.html" class="item issem-icon"><i class="icon large list"></i> &ensp;Sensores</a>
@@ -61,7 +62,7 @@
                         <i class="user icon"></i>
                         Perfil
                     </a>
-                    <a href="#" class="item">
+                    <a href="login.html" class="item">
                         <i class="sign out icon"></i>
                         Sair
                     </a>
@@ -70,7 +71,6 @@
         </div>
     </div>
 </nav>
-
 
 <section>
     <div class="ui container issem-content">
@@ -100,7 +100,7 @@
                                 <p>
                                     <i class="check circle icon"></i> <strong>Status: &ensp;</strong>
                                 <div class="ui fitted toggle checkbox">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked="checked"/>
                                     <label></label>
                                 </div>
                                 </p>
@@ -125,22 +125,22 @@
                                     <tbody>
                                     <tr>
                                         <td>DHT 22</td>
-                                        <td>Umidade</td>
-                                        <td>Lab-05</td>
-                                        <td>%</td>
+                                        <td>Temperatura</td>
+                                        <td>Acima da porta de entrada</td>
+                                        <td>°C</td>
                                         <td><a href="dados.html"><i class="database icon"></i> Dados</a></td>
                                     </tr>
                                     <tr>
                                         <td>DHT 22</td>
-                                        <td>Temperatura</td>
-                                        <td>Bloco A</td>
-                                        <td>°C</td>
+                                        <td>Umidade</td>
+                                        <td>Acima da porta de entrada</td>
+                                        <td>%</td>
                                         <td><a href="dados.html"><i class="database icon"></i> Dados</a></td>
                                     </tr>
                                     <tr>
                                         <td>Sensor de Presença</td>
                                         <td>Presença</td>
-                                        <td>Fábrica de Software</td>
+                                        <td>-81.235689, -58.892567</td>
                                         <td>Inteiro</td>
                                         <td><a href="dados.html"><i class="database icon"></i> Dados</a></td>
                                     </tr>
@@ -158,7 +158,7 @@
                     </div>
 
                     <div class="sixteen wide column">
-                        <button class="ui blue button"><i class="database icon"></i> Exportar dados</button>
+                        <a href="exportar_dados.html"  class="ui blue button"><i class="database icon"></i> Exportar dados</a>
                     </div>
 
                 </div>

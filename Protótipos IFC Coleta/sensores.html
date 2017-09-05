@@ -3,7 +3,7 @@
 <head>
     <title>IFC Coleta</title>
     <meta charset="UTF-8">
-    <link rel="icon" href="images/logo.png'" type="image/x-icon"/>
+    <link rel="icon" href="images/favicon.png" type="image/x-icon"/>
     <link type="text/css" rel="stylesheet" href="css/base.css"/>
     <link type="text/css" rel="stylesheet" href="css/jquery-ui.css"/>
     <link type="text/css" rel="stylesheet" href="semantic/semantic.css"/>
@@ -17,16 +17,16 @@
         <div class="ui container">
             <div class="ui grid">
                 <div class="two wide column">
-					<i class="massive world icon icon-logo"></i>
+                    <i class="massive world icon icon-logo"></i>
                 </div>
                 <div class="eleven wide column">
                     <br/>
-                    <h2 class="ui header red">
+                    <div class="ui large header red">
                         <a href="index.html" class="issem-title">IFC Coleta</a>
                         <div class="sub header">
                             Sistema para coleta de dados dentro da Internet das Coisas
                         </div>
-                    </h2>
+                    </div>
                     <br/>
                 </div>
                 <div class="three wide column right aligned">
@@ -46,144 +46,138 @@
 
 <nav class="ui menu large">
     <div class="ui container">
-        <a href="index.html" class="item issem-icon"><i class="icon large home"></i> &ensp;Início</a>
+        <a href="index.html" class="item issem-icon"><i class="icon large home"></i></a>
+        <a href="index.html" class="item issem-icon"><i class="icon large clone"></i> &ensp;Seus Projetos</a>
         <a href="novo_projeto.html" class="item issem-icon"><i class="icon large plus"></i> &ensp;Novo Projeto</a>
         <a href="nova_coleta.html" class="item issem-icon"><i class="icon large plus"></i> &ensp;Nova Coleta</a>
         <a href="sensores.html" class="item issem-icon"><i class="icon large list"></i> &ensp;Sensores</a>
 
-		<div class="right menu">
-			<div class="ui pointing dropdown link item">
-				<i class="ui right large user icon"></i>
-				Nome do Usuário
-				<i class="angle down icon"></i>
-				<div class="menu">
+        <div class="right menu">
+            <div class="ui pointing dropdown link item">
+                <i class="ui right large user icon"></i>
+                Nome do Usuário
+                <i class="angle down icon"></i>
+                <div class="menu">
                     <a href="perfil.html" class="item">
-						<i class="user icon"></i>
-						Perfil
-					</a>
-					<a href="#" class="item">
-						<i class="sign out icon"></i>
-						Sair
-					</a>
-				</div>
-			</div>
-		</div>
+                        <i class="user icon"></i>
+                        Perfil
+                    </a>
+                    <a href="login.html" class="item">
+                        <i class="sign out icon"></i>
+                        Sair
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>
 
-
 <section>
     <div class="ui container issem-content">
-		
-		<div class="ui centered grid issem-grid">
-			<div class="ui row segment issem-segment border-segment">
 
-				<div class="three wide column">
-					<a href="index.html">
-						<div class="ui labeled icon button basic">
-							<i class="left arrow icon"></i> Voltar
-						</div>
-					</a>
-				</div>
+        <div class="ui centered grid issem-grid">
+            <div class="ui row segment issem-segment border-segment">
 
-				<div class="ten wide column">
-					<div class="issem-title-edit-page">
-						<h1><i class="list icon"></i> Sensores</h1>
-					</div>
-				</div>
+                <div class="three wide column">
+                    <a href="index.html">
+                        <div class="ui labeled icon button basic">
+                            <i class="left arrow icon"></i> Voltar
+                        </div>
+                    </a>
+                </div>
 
-				<div class="three wide column">
-					 <div class="ui right floated vertical buttons">
-						<a href="novo_sensor.html" class="ui labeled icon button green">
-							<i class="plus icon"></i> Novo Sensor
-						</a>
-						<a href="sensores_projetos.html" class="ui labeled icon button blue">
-							<i class="list icon"></i> Em utilização
-						</a>
-					</div>
-				</div>
-					
-				<table class="ui celled table issem-table-form">
-					<thead>
-						<tr>
-							<th>Descrição</th>
-							<th>Projetos utilizando</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>DHT 22</td>
-							<td>Estação Meteorológica; ISES</td>
-						</tr>
-						<tr>
-							<td>DHT 22</td>
-							<td>Estação Meteorológica; ISES</td>
-						</tr>
-						<tr>
-							<td>DHT 22</td>
-							<td>Estação Meteorológica; ISES</td>
-						</tr>
-						<tr>
-							<td>DHT 22</td>
-							<td>Estação Meteorológica; ISES</td>
-						</tr>
-						<tr>
-							<td>DHT 22</td>
-							<td>Estação Meteorológica; ISES</td>
-						</tr>
-						<tr>
-							<td>DHT 22</td>
-							<td>Estação Meteorológica; ISES</td>
-						</tr>
-						<tr>
-							<td>DHT 22</td>
-							<td>Estação Meteorológica; ISES</td>
-						</tr>
-						<tr>
-							<td>DHT 22</td>
-							<td>Estação Meteorológica; ISES</td>
-						</tr>
-						<tr>
-							<td>DHT 22</td>
-							<td>Estação Meteorológica; ISES</td>
-						</tr>
-						<tr>
-							<td>DHT 22</td>
-							<td>Estação Meteorológica; ISES</td>
-						</tr>
-					</tbody>
-				</table>
+                <div class="ten wide column">
+                    <div class="issem-title-edit-page">
+                        <h1><i class="list icon"></i> Sensores</h1>
+                    </div>
+                </div>
 
-    <div class="ui centered grid issem-pagination">
-        <div class="ui pagination menu">
-                <a href="#" class="icon item blue" style="color: #2185d0">Primeira</a>
+                <div class="three wide column">
+                    <div class="ui right floated vertical buttons">
+                        <a href="novo_sensor.html" class="ui labeled icon button green">
+                            <i class="plus icon"></i> Novo Sensor
+                        </a>
+                        <a href="sensores_projetos.html" class="ui labeled icon button blue">
+                            <i class="list icon"></i> Em utilização
+                        </a>
+                    </div>
+                </div>
 
-                <a href="#" class="icon item"><i class="left arrow icon blue"></i></a>
+                <table class="ui celled table issem-table-form">
+                    <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Projetos utilizando</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Sensor de Temperatura</td>
+                        <td>Estação Meteorológica; SIES</td>
+                    </tr>
+                    <tr>
+                        <td>Sensor de Umidade</td>
+                        <td>Estação Meteorológica; SIES</td>
+                    </tr>
+                    <tr>
+                        <td>Sensor de Presença</td>
+                        <td>---</td>
+                    </tr>
+                    <tr>
+                        <td>Sensor ultrassônico</td>
+                        <td>---</td>
+                    </tr>
+                    <tr>
+                        <td>Sensor de Pluviosidade</td>
+                        <td>Estação Meteorológica;</td>
+                    </tr>
+                    <tr>
+                        <td>Sensor de CO²</td>
+                        <td>---</td>
+                    </tr>
+                    <tr>
+                        <td>Anemômetro</td>
+                        <td>Estação Meteorológica</td>
+                    </tr>
+                    <tr>
+                        <td>Sensor de Umidade do Solo</td>
+                        <td>SIES</td>
+                    </tr>
+                    </tbody>
+                </table>
 
-				<a href="#" class="icon item">1</a>
-				<a href="#" class="icon item" style="color: #2185d0">2</a>
-				<a href="#" class="icon item" style="color: #2185d0">3</a>
+                <div class="ui centered grid issem-pagination">
+                    <div class="ui pagination menu">
+                        <a href="#" class="icon item blue" style="color: #2185d0">Primeira</a>
 
-                <a href="#" class="icon item"><i class="right arrow icon blue"></i></a>
-                <a href="#" class="icon item blue" style="color: #2185d0">Última</a>
+                        <a href="#" class="icon item"><i class="left arrow icon blue"></i></a>
+
+                        <a href="#" class="icon item">1</a>
+                        <a href="#" class="icon item" style="color: #2185d0">2</a>
+                        <a href="#" class="icon item" style="color: #2185d0">3</a>
+
+                        <a href="#" class="icon item"><i class="right arrow icon blue"></i></a>
+                        <a href="#" class="icon item blue" style="color: #2185d0">Última</a>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
-    </div>
 
-				
-			</div>
-		</div>
-		
-	</div>
+    </div>
 </section>
 
 <footer class="ui inverted vertical segment footer">
     <div class="ui centered grid">
         <div class="sixteen wide column center aligned">
-            <strong><em>
-				Instituto Federal Catarinense Câmpus Araquari
-				<br/>
-				Wagner Esser | 2017
-            </strong></em>
+            <strong>
+                <em>
+                    Instituto Federal Catarinense Câmpus Araquari
+                    <br/>
+                    Wagner Esser | 2017
+                </em>
+            </strong>
         </div>
     </div>
 </footer>
