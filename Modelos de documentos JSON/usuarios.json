@@ -1,0 +1,22 @@
+{
+  "usuarios": [
+    {
+      "id": "78563",
+      "nome": "Marcos de Oliveira",
+      "email": "marcos.oliveira@email.com",
+      "senha": "*****"
+    },
+    {
+      "id": "35489",
+      "nome": "Maria dos Santos",
+      "email": "maria.santos@email.com",
+      "senha": "*****"
+    },
+    {
+      "id": "124578",
+      "nome": "Bruna Guimarães",
+      "email": "bruna.guimaraes@email.com",
+      "senha": "*****"
+    }
+  ]
+}

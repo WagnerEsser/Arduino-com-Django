@@ -1,6 +1,6 @@
 {
   "umidade": {
-    "projeto": "nome_projeto",
+    "projeto": "Estação Meteorológica",
     "coletas": [
       {
         "id_controlador": "999999",
@@ -12,10 +12,10 @@
           {
             "unidade_medida": "ºC",
             "descricao": "Sensor de Temperatura",
-            "local": "58.564972 -52.917455",
+            "local": "-26.296534, -48.854252",
             "dados": [
               {
-                "data_hora": "01/01/2017",
+                "data_hora": "15/06/2017",
                 "dado": "15ºC"
               }
             ]
@@ -24,10 +24,10 @@
       }
     ]
   },
-  "temperatura":{},
-  "pluviosidade":{},
-  "anemometro":{},
-  "direcao_vento":{},
-  "umidade_solo":{},
-  "barometro":{}
+  "temperatura": {},
+  "pluviosidade": {},
+  "anemometro": {},
+  "direcao_vento": {},
+  "umidade_solo": {},
+  "barometro": {}
 }

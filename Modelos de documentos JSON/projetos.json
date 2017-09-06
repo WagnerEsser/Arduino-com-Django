@@ -1,0 +1,34 @@
+{
+  "projetos": [
+    {
+      "nome": "Estação Meteorológica",
+      "orientador": "João da Silva",
+      "integrantes": [
+        {
+          "nome": "Marcos de Oliveira"
+        },
+        {
+          "nome": "Irineu Rocha"
+        },
+        {
+          "nome": "Felipe Lucas"
+        }
+      ]
+    },
+    {
+      "nome": "SIES",
+      "orientador": "João da Silva",
+      "integrantes": [
+        {
+          "nome": "Daniel Schneider"
+        },
+        {
+          "nome": "Maria dos Santos"
+        },
+        {
+          "nome": "Bruna Guimarães"
+        }
+      ]
+    }
+  ]
+}
