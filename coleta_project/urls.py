@@ -20,5 +20,5 @@ from coleta import views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index, name='index'),
-    url(r'^coleta/', include('coleta.urls', namespace="coleta")),
+    url(r'^coleta/', include('coleta.urls')),
 ]
