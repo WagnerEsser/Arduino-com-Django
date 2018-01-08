@@ -9,7 +9,7 @@ Instituto Federal Catarinense Câmpus Araquari.
 Curso de Bacharelado em Sistemas de Informação.
 
 * **Autor:** Wagner Esser
-* **Linguagem:** Python
-* **Ferramentas:** Arduino + Django
+* **Linguagem:** Python + NoSQL
+* **Ferramentas:** Django + DjangoDB
 
 ---
