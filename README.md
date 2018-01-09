@@ -13,3 +13,7 @@ Curso de Bacharelado em Sistemas de Informação.
 * **Ferramentas:** Django + DjangoDB
 
 ---
+
+Requerimentos:
+- Instalar requerimentos do arquivo 'requirements.txt'
+- Utilizar Python 3.6
