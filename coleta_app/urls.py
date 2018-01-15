@@ -1,11 +1,12 @@
 from django.conf.urls import url
 from coleta_app import views
 from django.views.generic import TemplateView
+from coleta_app.views.login import LoginView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^contato/$', TemplateView.as_view(template_name='contato.html'), name='contato'),
-    url(r'^login/$', TemplateView.as_view(template_name='login.html'), name='login'),
+    url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^perfil/$', TemplateView.as_view(template_name='perfil.html'), name='perfil'),
     url(r'^edita_perfil/$', TemplateView.as_view(template_name='cruds/edita_perfil.html'), name='edita_perfil'),
 

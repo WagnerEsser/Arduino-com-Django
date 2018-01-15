@@ -2,28 +2,50 @@
 
 {% block body %}
 
+    <div class="sixteen wide column centered aligned">
+        {% if msg %}
+            <div class="ui {{ tipo_msg }} message">
+                <div class="header">
+                    {{ msg }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
     <div class="row">
         <div class="four wide column">
             <div class="ui segment">
-                <form class="ui large form" action="#" method="post">
+                <form class="ui large form" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
                     <div class="field">
                         <label>E-mail:</label>
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text"/>
+                            {{ form.username }}
                         </div>
+                        {% if form.username.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.username.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="field">
                         <label>Senha:</label>
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
-                            <input type="password"/>
+                            {{ form.password }}
                         </div>
+
+                        {% if form.password.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.password.errors }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <br/>
                     <div class="ui centered grid">
-                        <a href="{% url 'index' %}" type="submit" name="submit" class="ui button blue center">Login</a>
+                        <input type="submit" name="submit" class="ui button blue center" value="Login" />
                     </div>
                     <br/>
                     <br/>
