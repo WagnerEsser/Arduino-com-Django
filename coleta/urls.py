@@ -20,7 +20,6 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index, name='index'),
     url(r'^coleta/', include('coleta_app.urls')),
 ]

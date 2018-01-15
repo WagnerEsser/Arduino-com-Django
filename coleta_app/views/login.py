@@ -5,6 +5,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.base import View
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout
 
 
 class LoginView(View):
@@ -38,8 +39,15 @@ class LoginView(View):
 
             form = AuthenticationForm()
             context_dict['form'] = form
-            tipo_msg = 'red'
+            context_dict['msg'] = msg
+            context_dict['tipo_msg'] = 'red'
+            return render(request, self.template_name, context_dict)
 
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         return render(request, "index.html", context_dict)
+
+    @classmethod
+    def logout(self, request):
+        logout(request)
+        return HttpResponseRedirect(reverse('login'))

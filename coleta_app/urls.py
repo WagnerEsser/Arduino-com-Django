@@ -1,12 +1,14 @@
 from django.conf.urls import url
-from coleta_app import views
 from django.views.generic import TemplateView
+from coleta_app import views
 from coleta_app.views.login import LoginView
+from coleta_app.views.coleta import ColetaView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^contato/$', TemplateView.as_view(template_name='contato.html'), name='contato'),
     url(r'^login/$', LoginView.as_view(), name='login'),
+    url(r'^logout/', LoginView.logout, name='logout'),
     url(r'^perfil/$', TemplateView.as_view(template_name='perfil.html'), name='perfil'),
     url(r'^edita_perfil/$', TemplateView.as_view(template_name='cruds/edita_perfil.html'), name='edita_perfil'),
 
@@ -23,7 +25,7 @@ urlpatterns = [
     url(r'^dados/$', TemplateView.as_view(template_name='listas/dados.html'), name='lista_dados'),
 
     # DEMAIS
-    url(r'^coleta/$', TemplateView.as_view(template_name='coleta.html'), name='coleta'),
+    url(r'^coleta/(?P<id>\d+)/$', ColetaView.VisualizarColeta, name='coleta'),
     url(r'^exportar_dados/$', TemplateView.as_view(template_name='exportar_dados.html'), name='exportar_dados'),
 
     # 404

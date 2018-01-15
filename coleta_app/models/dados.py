@@ -5,6 +5,7 @@ from djongo import models
 class DadosModel(models.Model):
     nome_projeto = models.CharField(max_length=100)
     orientador_projeto = models.CharField(max_length=100)
+    coleta_id = models.CharField(max_length=100)
     contexto = models.CharField(max_length=100)
     local = models.CharField(max_length=100)
     data = models.CharField(max_length=100)
@@ -16,10 +17,10 @@ class DadosModel(models.Model):
     id_controlador = models.CharField(max_length=100)
 
     def __unicode__(self):
-        return self.contexto + " > " + self.dado + " " + self.unidade_medida + " - " + self.data + " - " + self.hora
+        return self.contexto + " > (" + self.tipo_sensor + ") " + self.dado + " " + self.unidade_medida + " - " + self.data + " - " + self.hora
 
     def __str__(self):
-        return self.contexto + " > " + self.dado + " " + self.unidade_medida + " - " + self.data + " - " + self.hora
+        return self.contexto + " > (" + self.tipo_sensor + ") " + self.dado + " " + self.unidade_medida + " - " + self.data + " - " + self.hora
 
     class Meta:
         verbose_name = "Dado"

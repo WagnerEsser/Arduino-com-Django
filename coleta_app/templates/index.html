@@ -20,140 +20,69 @@
                 <div class="ui divider"></div>
             </div>
 
-            <div class="sixteen wide column coleta-table-form">
-                <div class="ui grid">
-                    <div class="sixteen wide column">
-                        <h2><i class="file outline icon"></i> Estação Meteorológica</h2>
-                    </div>
+            {% for projeto in projetos %}
 
-                    <div class="eight wide column">
-                        <p><i class="calendar icon"></i> <strong>Cadastrado em: </strong>
-                            15 de junho de 2017</p>
+                <div class="sixteen wide column coleta-table-form">
+                    <div class="ui grid">
+                        <div class="sixteen wide column">
+                            <h2><i class="file outline icon"></i> {{ projeto }}</h2>
+                        </div>
 
-                        <p><i class="user icon"></i> <strong>Criado por: </strong>João da Silva</p>
+                        <div class="eight wide column">
+                            <p><i class="calendar icon"></i> <strong>Cadastrado em: </strong>
+                                {{ projeto.data_cadastro }}</p>
 
-                        <p><i class="spy icon"></i> <strong>Orientador: </strong>João da Silva</p>
-                    </div>
+                            <p><i class="user icon"></i> <strong>Criado por: </strong>{{ projeto.quem_cadastrou }}</p>
 
-                    <div class="eight wide column">
-                        <i class="group icon"></i> <strong>Integrantes: </strong>
-                        <ul>
-                            <li>Marcos de Oliveira - marcos.oliveira@email.com</li>
-                            <li>Irineu Rocha - irineu.rocha@email.com</li>
-                            <li>Felipe Lucas - felipe.lucas@email.com</li>
-                        </ul>
-                    </div>
+                            <p><i class="spy icon"></i> <strong>Orientador: </strong>{{ projeto.orientador }}</p>
+                        </div>
 
-                    <div class="sixteen wide column">
-                        <i class="list icon"></i> <strong>Coletas</strong>
-                        <table class="ui celled table">
-                            <thead>
-                            <tr>
-                                <th>ID Coleta</th>
-                                <th>ID Controlador</th>
-                                <th>Contexto</th>
-                                <th>Status</th>
-                                <th><i class="settings icon"></i> Ações</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>#00001</td>
-                                <td>#789632178</td>
-                                <td>Fábrica de Software</td>
-                                <td>Ativo</td>
-                                <td><a href="{% url 'coleta' %}"><i class="eye icon"></i> Ver coleta</a></td>
-                            </tr>
-                            <tr>
-                                <td>#00002</td>
-                                <td>#4353645</td>
-                                <td>Bloco B</td>
-                                <td>Ativo</td>
-                                <td><a href="{% url 'coleta' %}"><i class="eye icon"></i> Ver coleta</a></td>
-                            </tr>
-                            <tr>
-                                <td>#00003</td>
-                                <td>#5397808934</td>
-                                <td>Lab - 05</td>
-                                <td>Desativado</td>
-                                <td><a href="{% url 'coleta' %}"><i class="eye icon"></i> Ver coleta</a></td>
-                            </tr>
-                            <tr>
-                                <td>#00004</td>
-                                <td>#78674334</td>
-                                <td>Estação Meteorológica</td>
-                                <td>Ativo</td>
-                                <td><a href="{% url 'coleta' %}"><i class="eye icon"></i> Ver coleta</a></td>
-                            </tr>
-                        </table>
+                        <div class="eight wide column">
+                            <i class="group icon"></i> <strong>Integrantes: </strong>
+                            <ul>
+                                {% for integrante in projeto.integrantes.all %}
+                                    <li>{{ integrante.get_full_name }} - {{ integrante.email }}</li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+
+                        <div class="sixteen wide column">
+                            <i class="list icon"></i> <strong>Coletas</strong>
+                            <table class="ui celled table">
+                                <thead>
+                                <tr>
+                                    <th>ID Coleta</th>
+                                    <th>ID Controlador</th>
+                                    <th>Contexto</th>
+                                    <th>Status</th>
+                                    <th><i class="settings icon"></i> Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for coleta in coletas %}
+                                    {% if coleta.projeto.id == projeto.id %}
+                                        <tr>
+                                            <td># {{ coleta.id }}</td>
+                                            <td># {{ coleta.id_controlador }}</td>
+                                            <td>{{ coleta.contexto }}</td>
+                                            <td>{{ coleta.status }}</td>
+                                            <td><a href="{% url 'coleta' coleta.id %}"><i class="eye icon"></i> Ver coleta</a>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <br/>
 
-            <div class="sixteen wide column">
-                <a href="{% url 'exportar_dados' %}" class="ui blue button"><i class="database icon"></i> Exportar dados</a>
-            </div>
-
-            <br/>
-
-            <div class="sixteen wide column">
-                <div class="ui divider"></div>
-            </div>
-
-            <div class="sixteen wide column coleta-table-form">
-                <div class="ui grid">
-                    <div class="sixteen wide column">
-                        <h2><i class="file outline icon"></i> SIES</h2>
-                    </div>
-
-                    <div class="eight wide column">
-                        <p><i class="calendar icon"></i> <strong>Cadastrado em: </strong>
-                            28 de agosto de 2017</p>
-
-                        <p><i class="user icon"></i> <strong>Criado por: </strong>Daniel Schneider</p>
-
-                        <p><i class="spy icon"></i> <strong>Orientador: </strong>João da Silva</p>
-                    </div>
-
-                    <div class="eight wide column">
-                        <i class="group icon"></i> <strong>Integrantes: </strong>
-                        <ul>
-                            <li>Daniel Schneider - daniel.schneider@email.com</li>
-                            <li>Maria dos Santos - maria.santos@email.com</li>
-                            <li>Bruna Guimarães - bruna.guimaraes@email.com</li>
-                        </ul>
-                    </div>
-
-                    <div class="sixteen wide column">
-                        <h3><i class="list icon"></i> Coletas</h3>
-                        <table class="ui celled table">
-                            <thead>
-                            <tr>
-                                <th>ID Coleta</th>
-                                <th>ID Controlador</th>
-                                <th>Contexto</th>
-                                <th>Status</th>
-                                <th><i class="settings icon"></i> Ações</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>#00005</td>
-                                <td>#665584</td>
-                                <td>Fábrica de Software</td>
-                                <td>Ativo</td>
-                                <td><a href="{% url 'coleta' %}"><i class="eye icon"></i> Ver coleta</a></td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="sixteen wide column">
+                    <div class="ui divider"></div>
                 </div>
-            </div>
 
-            <div class="sixteen wide column">
-                <a href="{% url 'exportar_dados' %}" class="ui blue button"><i class="database icon"></i> Exportar dados</a>
-            </div>
-
-            <br/>
+            {% endfor %}
 
         </div>
     </div>

@@ -7,8 +7,11 @@
 
             <div class="sixteen wide column">
                 <div class="ui grid">
-                    <div class="sixteen wide column">
-                        <h2><i class="file outline icon"></i> Coleta: #4234234</h2>
+                    <div class="eight wide column">
+                        <h2><i class="file outline icon"></i> Coleta: # {{ coleta.id }}</h2>
+                    </div>
+                    <div class="eight wide column right aligned">
+                        <h2>Projeto: {{ coleta.projeto }}</h2>
                     </div>
 
                     <div class="sixteen wide column">
@@ -16,21 +19,16 @@
                     </div>
 
                     <div class="eight wide column">
-                        <p><i class="hashtag icon"></i> <strong>ID do Controlador: </strong>#65A46H45</p>
-                        <p><i class="lock icon"></i> <strong>Token de autenticação: </strong>#ddfg6h0sdf6jh638g7h
-                        </p>
-                        <p><i class="user icon"></i> <strong>Criado por: </strong>Maria dos Santos</p>
+                        <p><i class="hashtag icon"></i> <strong>ID do
+                            Controlador: </strong># {{ coleta.id_controlador }}</p>
+                        <p><i class="lock icon"></i> <strong>Token de autenticação: </strong># {{ coleta.token }}</p>
+                        <p><i class="calendar icon"></i> <strong>Data Inicial: </strong>{{ coleta.data_inicio }}</p>
+                        <p><i class="calendar icon"></i> <strong>Data final: </strong> {{ coleta.data_fim }}</p>
                     </div>
 
                     <div class="eight wide column">
                         <p><i class="marker icon"></i> <strong>Contexto: </strong>Fábrica de Software</p>
-                        <p>
-                            <i class="check circle icon"></i> <strong>Status: &ensp;</strong>
-                        <div class="ui fitted toggle checkbox">
-                            <input type="checkbox" checked="checked"/>
-                            <label></label>
-                        </div>
-                        </p>
+                        <p><i class="check circle icon"></i> <strong>Status: {{ coleta.status }}</strong></p>
                     </div>
 
                     <div class="sixteen wide column">
@@ -38,55 +36,51 @@
                     </div>
 
                     <div class="sixteen wide column">
-                        <h3><i class="list icon"></i> Sensores</h3>
-                        <table class="ui celled table">
-                            <thead>
-                            <tr>
-                                <th>Descrição</th>
-                                <th>Tipo de Sensor</th>
-                                <th>Local</th>
-                                <th>Unidade de Medida</th>
-                                <th><i class="settings icon"></i> Ações</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>DHT 22</td>
-                                <td>Temperatura</td>
-                                <td>Acima da porta de entrada</td>
-                                <td>°C</td>
-                                <td><a href="{% url 'lista_dados' %}"><i class="database icon"></i> Dados</a></td>
-                            </tr>
-                            <tr>
-                                <td>DHT 22</td>
-                                <td>Umidade</td>
-                                <td>Acima da porta de entrada</td>
-                                <td>%</td>
-                                <td><a href="{% url 'lista_dados' %}"><i class="database icon"></i> Dados</a></td>
-                            </tr>
-                            <tr>
-                                <td>Sensor de Presença</td>
-                                <td>Presença</td>
-                                <td>-81.235689, -58.892567</td>
-                                <td>Inteiro</td>
-                                <td><a href="{% url 'lista_dados' %}"><i class="database icon"></i> Dados</a></td>
-                            </tr>
-                            <tr>
-                                <td>Estação Meteorológica</td>
-                                <td>Pluviosidade</td>
-                                <td>-26.296534, -48.854252</td>
-                                <td>mm</td>
-                                <td><a href="{% url 'lista_dados' %}"><i class="database icon"></i> Dados</a></td>
-                            </tr>
-                        </table>
+                        <h3><i class="database icon"></i> Últimos dados coletados</h3>
+                        {% if dados %}
+                            <table class="ui celled table">
+                                <thead>
+                                <tr>
+                                    <th>Projeto</th>
+                                    <th>Orientador</th>
+                                    <th>Sensor</th>
+                                    <th>Tipo de Sensor</th>
+                                    <th>Local</th>
+                                    <th>Unidade de Medida</th>
+                                    <th>Data e hora</th>
+                                    <th>Dado</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for dado in dados %}
+                                    <tr>
+                                        <td>{{ dado.nome_projeto }}</td>
+                                        <td>{{ dado.orientador_projeto }}</td>
+                                        <td>{{ dado.sensor }}</td>
+                                        <td>{{ dado.tipo_sensor }}</td>
+                                        <td>{{ dado.local }}</td>
+                                        <td>{{ dado.unidade_medida }}</td>
+                                        <td>{{ dado.data }} - {{ dado.hora }}</td>
+                                        <td class="active">{{ dado.dado }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        {% else %}
+                            <div class="ui yellow message">
+                                Não existe nenhum dado coletado.
+                            </div>
+                        {% endif %}
                         <br/>
                     </div>
                 </div>
             </div>
 
-            <div class="sixteen wide column">
-                <a href="{% url 'exportar_dados' %}" class="ui blue button"><i class="database icon"></i> Exportar dados</a>
-            </div>
+            {% if dados %}
+                <div class="sixteen wide column center aligned">
+                    <a href="{% url 'exportar_dados' %}" class="ui blue button"><i class="database icon"></i> Exportar
+                        dados</a>
+                </div>
+            {% endif %}
 
         </div>
     </div>

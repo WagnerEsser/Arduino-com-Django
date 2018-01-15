@@ -52,28 +52,37 @@
 <nav class="ui menu large">
     <div class="ui container">
         <a href="{% url 'index' %}" class="item coleta-icon"><i class="icon large home"></i></a>
-        <a href="{% url 'index' %}" class="item coleta-icon"><i class="icon large clone"></i> &ensp;Seus Projetos</a>
-        <a href="{% url 'novo_projeto' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Novo Projeto</a>
-        <a href="{% url 'nova_coleta' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Nova Coleta</a>
-        <a href="{% url 'lista_sensores' %}" class="item coleta-icon"><i class="icon large list"></i> &ensp;Sensores</a>
+        {% if not user.is_anonymous %}
 
-        <div class="right menu">
-            <div class="ui pointing dropdown link item">
-                <i class="ui right large user icon"></i>
-                Nome do Usuário
-                <i class="angle down icon"></i>
-                <div class="menu">
-                    <a href="{% url 'perfil' %}" class="item">
-                        <i class="user icon"></i>
-                        Perfil
-                    </a>
-                    <a href="{% url 'login' %}" class="item">
-                        <i class="sign out icon"></i>
-                        Sair
-                    </a>
+            <a href="{% url 'index' %}" class="item coleta-icon"><i class="icon large clone"></i> &ensp;Seus
+                Projetos</a>
+            <a href="{% url 'novo_projeto' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Novo
+                Projeto</a>
+            <a href="{% url 'nova_coleta' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Nova Coleta</a>
+            <a href="{% url 'lista_sensores' %}" class="item coleta-icon"><i class="icon large list"></i> &ensp;Sensores</a>
+
+            <div class="right menu">
+                <div class="ui pointing dropdown link item">
+                    <i class="ui right large user icon"></i>
+                    {% if user.get_full_name %}
+                        {{ user.get_full_name }}
+                    {% else %}
+                        (Usuário sem nome)
+                    {% endif %}
+                    <i class="angle down icon"></i>
+                    <div class="menu">
+                        <a href="{% url 'perfil' %}" class="item">
+                            <i class="user icon"></i>
+                            Perfil
+                        </a>
+                        <a href="{% url 'logout' %}" class="item">
+                            <i class="sign out icon"></i>
+                            Sair
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 </nav>
 
