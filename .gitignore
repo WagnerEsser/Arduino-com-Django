@@ -63,4 +63,4 @@ docs/_build/
 
 # PyBuilder
 target/
-!/Protótipos IFC Coleta/semanticui/dist/
+!/static/semanticui/dist/

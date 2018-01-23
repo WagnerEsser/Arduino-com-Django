@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from coleta_app import views
 from coleta_app.views.login import LoginView
 from coleta_app.views.coleta import ColetaView
+from coleta_app.views.pessoa import PessoaView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -17,7 +18,8 @@ urlpatterns = [
     url(r'^nova_coleta/$', TemplateView.as_view(template_name='cruds/nova_coleta.html'), name='nova_coleta'),
     url(r'^novo_sensor/$', TemplateView.as_view(template_name='cruds/novo_sensor.html'), name='novo_sensor'),
     url(r'^novo_local/$', TemplateView.as_view(template_name='cruds/novo_local.html'), name='novo_local'),
-    url(r'^nova_pessoa/$', TemplateView.as_view(template_name='cruds/nova_pessoa.html'), name='nova_pessoa'),
+    url(r'^nova_pessoa/$', PessoaView.as_view(), name='nova_pessoa'),
+    url(r'^edita_pessoa/(?P<id>\d+)/$', PessoaView.as_view(), name='edita_pessoa'),
 
     # LISTAS
     url(r'^sensores/$', TemplateView.as_view(template_name='listas/sensores.html'), name='lista_sensores'),

@@ -18,7 +18,7 @@
                 <form class="ui large form" action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                     <div class="field">
-                        <label>E-mail:</label>
+                        <label>Nome de usuário:</label>
                         <div class="ui left icon input">
                             <i class="user icon"></i>
                             {{ form.username }}

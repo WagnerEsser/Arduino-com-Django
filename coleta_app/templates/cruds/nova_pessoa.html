@@ -4,6 +4,18 @@
 
     <div class="ui row segment coleta-segment border-segment">
 
+        {% if msg %}
+            <div class="sixteen wide column issem-div-message">
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
+                    </div>
+                </div>
+                <br/>
+            </div>
+        {% endif %}
+
+
         <div class="three wide column">
             <a href="{% url 'index' %}">
                 <div class="ui labeled icon button basic">
@@ -21,45 +33,99 @@
         <div class="three wide column"></div>
 
         <div class="sixteen wide column coleta-table-form">
-            <form class="ui form" id="RequerimentoForm" method="post" enctype="multipart/form-data" action="#">
+            {% if not id %}
+                <form class="ui form" id="PessoaForm" method="post" action="{% url 'nova_pessoa' %}">
+            {% else %}
+                <form class="ui form" id="PessoaForm" method="post" action="{% url 'edita_pessoa' id %}">
+            {% endif %}
 
-                <div class="fields">
-                    <div class="four wide field"></div>
-                    <div class="four wide field">
-                        <label>Nome</label>
-                        <input type="text" placeholder="João Silva..."/>
-                    </div>
-                    <div class="four wide field">
-                        <label>E-mail</label>
-                        <input type="text" placeholder="joao@email.com"/>
-                    </div>
-                    <div class="four wide field"></div>
-                </div>
+            {% csrf_token %}
 
-                <div class="fields">
-                    <div class="four wide field"></div>
-                    <div class="eight wide field">
-                        <div class="ui blue message">
-                            Um link será enviado para o e-mail cadastrado para criação de senha.
+            {% if not id %}
+                <input type="hidden" name="id" value="">
+            {% else %}
+                <input type="hidden" name="id" value="{{ id }}">
+            {% endif %}
+
+            <div class="fields">
+                <div class="four wide field"></div>
+                <div class="four wide field">
+                    <label>Nome</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <div class="ui pointing red basic label">
+                            {{ form.first_name.errors }}
                         </div>
-                    </div>
-                    <div class="four wide field"></div>
+                    {% endif %}
                 </div>
-
-
-                <br/>
-                <br/>
-                <br/>
-
-                <div class="ui centered grid">
-                    <div class="ui column centered row">
-                        <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                        <a href="{% url 'index' %}" class="ui button red">
-                            Cancelar
-                        </a>
-                    </div>
+                <div class="four wide field">
+                    <label>Sobrenome</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <div class="ui pointing red basic label">
+                            {{ form.last_name.errors }}
+                        </div>
+                    {% endif %}
                 </div>
+                <div class="four wide field"></div>
+            </div>
+
+            <div class="fields">
+                <div class="four wide field"></div>
+                <div class="four wide field">
+                    <label>E-mail</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="ui pointing red basic label">
+                            {{ form.email.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="four wide field">
+                    <label>Turma</label>
+                    {{ form.turma }}
+                    {% if form.turma.errors %}
+                        <div class="ui pointing red basic label">
+                            {{ form.turma.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="four wide field"></div>
+            </div>
+
+            <div class="fields">
+                <div class="four wide field"></div>
+                <div class="four wide field">
+                    <label>Nome de usuário</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="ui pointing red basic label">
+                            {{ form.username.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="four wide field">
+                    <label>Senha</label>
+                    {{ form.password }}
+                    {% if form.password.errors %}
+                        <div class="ui pointing red basic label">
+                            {{ form.password.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="four wide field"></div>
+            </div>
+            <br/>
+
+            <div class="ui centered grid">
+                <div class="ui column centered row">
+                    <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                    <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
+                    <a href="{% url 'index' %}" class="ui button red">
+                        Cancelar
+                    </a>
+                </div>
+            </div>
             </form>
 
         </div>
