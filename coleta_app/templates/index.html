@@ -1,89 +1,101 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <div class="ui centered grid coleta-grid">
-        <div class="ui row segment coleta-segment border-segment">
+    <div class="sixteen wide column">
+        <div class="ui centered grid coleta-grid">
+            <div class="ui row segment coleta-segment border-segment">
 
-            <div class="four wide column">
-                <h1><i class="clone icon"></i> Seus Projetos</h1>
-            </div>
-
-            <div class="nine wide column"></div>
-
-            <div class="three wide column">
-                <a class="ui green button" href="{% url 'novo_projeto' %}">
-                    <i class="ui plus icon"></i> Novo Projeto
-                </a>
-            </div>
-
-            <div class="sixteen wide column">
-                <div class="ui divider"></div>
-            </div>
-
-            {% for projeto in projetos %}
-
-                <div class="sixteen wide column coleta-table-form">
-                    <div class="ui grid">
-                        <div class="sixteen wide column">
-                            <h2><i class="file outline icon"></i> {{ projeto }}</h2>
-                        </div>
-
-                        <div class="eight wide column">
-                            <p><i class="calendar icon"></i> <strong>Cadastrado em: </strong>
-                                {{ projeto.data_cadastro }}</p>
-
-                            <p><i class="user icon"></i> <strong>Criado por: </strong>{{ projeto.quem_cadastrou }}</p>
-
-                            <p><i class="spy icon"></i> <strong>Orientador: </strong>{{ projeto.orientador }}</p>
-                        </div>
-
-                        <div class="eight wide column">
-                            <i class="group icon"></i> <strong>Integrantes: </strong>
-                            <ul>
-                                {% for integrante in projeto.integrantes.all %}
-                                    <li>{{ integrante.get_full_name }} - {{ integrante.email }}</li>
-                                {% endfor %}
-                            </ul>
-
-                        </div>
-
-                        <div class="sixteen wide column">
-                            <i class="list icon"></i> <strong>Coletas</strong>
-                            <table class="ui celled table">
-                                <thead>
-                                <tr>
-                                    <th>ID Coleta</th>
-                                    <th>ID Controlador</th>
-                                    <th>Contexto</th>
-                                    <th>Status</th>
-                                    <th><i class="settings icon"></i> Ações</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for coleta in coletas %}
-                                    {% if coleta.projeto.id == projeto.id %}
-                                        <tr>
-                                            <td># {{ coleta.id }}</td>
-                                            <td># {{ coleta.id_controlador }}</td>
-                                            <td>{{ coleta.contexto }}</td>
-                                            <td>{{ coleta.status }}</td>
-                                            <td><a href="{% url 'coleta' coleta.id %}"><i class="eye icon"></i> Ver coleta</a>
-                                            </td>
-                                        </tr>
-                                    {% endif %}
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </div>
+                <div class="four wide column">
+                    <h1><i class="clone icon"></i> Seus Projetos</h1>
                 </div>
-                <br/>
+
+                <div class="nine wide column"></div>
+
+                <div class="three wide column">
+                    <a class="ui green button" href="{% url 'novo_projeto' %}">
+                        <i class="ui plus icon"></i> Novo Projeto
+                    </a>
+                </div>
 
                 <div class="sixteen wide column">
                     <div class="ui divider"></div>
                 </div>
 
-            {% endfor %}
+                {% if projetos %}
+                    {% for projeto in projetos %}
 
+                        <div class="sixteen wide column coleta-table-form">
+                            <div class="ui grid">
+                                <div class="sixteen wide column">
+                                    <h2><i class="file outline icon"></i> {{ projeto }}</h2>
+                                </div>
+
+                                <div class="eight wide column">
+                                    <p><i class="calendar icon"></i> <strong>Cadastrado em: </strong>
+                                        {{ projeto.data_cadastro }}</p>
+
+                                    <p><i class="user icon"></i> <strong>Criado
+                                        por: </strong>{{ projeto.quem_cadastrou }}
+                                    </p>
+
+                                    <p><i class="spy icon"></i> <strong>Orientador: </strong>{{ projeto.orientador }}
+                                    </p>
+                                </div>
+
+                                <div class="eight wide column">
+                                    <i class="group icon"></i> <strong>Integrantes: </strong>
+                                    <ul>
+                                        {% for integrante in projeto.integrantes.all %}
+                                            <li>{{ integrante.get_full_name }} - {{ integrante.email }}</li>
+                                        {% endfor %}
+                                    </ul>
+
+                                </div>
+
+                                <div class="sixteen wide column">
+                                    <i class="list icon"></i> <strong>Coletas</strong>
+                                    <table class="ui celled table">
+                                        <thead>
+                                        <tr>
+                                            <th>ID Coleta</th>
+                                            <th>ID Controlador</th>
+                                            <th>Contexto</th>
+                                            <th>Status</th>
+                                            <th><i class="settings icon"></i> Ações</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for coleta in coletas %}
+                                            {% if coleta.projeto.id == projeto.id %}
+                                                <tr>
+                                                    <td># {{ coleta.id }}</td>
+                                                    <td># {{ coleta.id_controlador }}</td>
+                                                    <td>{{ coleta.contexto }}</td>
+                                                    <td>{{ coleta.status }}</td>
+                                                    <td><a href="{% url 'coleta' coleta.id %}"><i class="eye icon"></i>
+                                                        Ver
+                                                        coleta</a>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="sixteen wide column">
+                            <div class="ui divider"></div>
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <div class="ui yellow message">
+                        Você ainda não está em nenhum projeto.
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 
