@@ -4,6 +4,7 @@ from coleta_app import views
 from coleta_app.views.login import LoginView
 from coleta_app.views.coleta import ColetaView
 from coleta_app.views.pessoa import PessoaView
+from coleta_app.views.projeto import ProjetoView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -14,7 +15,8 @@ urlpatterns = [
     url(r'^edita_perfil/$', TemplateView.as_view(template_name='cruds/edita_perfil.html'), name='edita_perfil'),
 
     # CRUDS
-    url(r'^novo_projeto/$', TemplateView.as_view(template_name='cruds/novo_projeto.html'), name='novo_projeto'),
+    url(r'^novo_projeto/$', ProjetoView.as_view(), name='novo_projeto'),
+    url(r'^edita_projeto/(?P<id>\d+)/$', ProjetoView.as_view(), name='novo_projeto'),
     url(r'^nova_coleta/$', TemplateView.as_view(template_name='cruds/nova_coleta.html'), name='nova_coleta'),
     url(r'^novo_sensor/$', TemplateView.as_view(template_name='cruds/novo_sensor.html'), name='novo_sensor'),
     url(r'^novo_local/$', TemplateView.as_view(template_name='cruds/novo_local.html'), name='novo_local'),

@@ -2,94 +2,106 @@
 
 {% block body %}
 
-    <div class="ui container coleta-content">
-        <div class="ui centered grid coleta-grid">
-            <div class="ui row segment coleta-segment border-segment">
+    <div class="ui centered grid coleta-grid">
+        <div class="ui row segment coleta-segment border-segment">
 
-                <div class="three wide column">
-                    <a href="{% url 'index' %}">
-                        <div class="ui labeled icon button basic">
-                            <i class="left arrow icon"></i> Voltar
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
                         </div>
-                    </a>
+                    </div>
+                    <br/>
                 </div>
+            {% endif %}
 
-                <div class="ten wide column">
-                    <div class="coleta-title-edit-page">
-                        <h1><i class="plus icon"></i> Novo Projeto</h1>
+            <div class="three wide column">
+                <a href="{% url 'index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
+
+            <div class="ten wide column">
+                <div class="coleta-title-edit-page">
+                    <h1><i class="plus icon"></i> Novo Projeto</h1>
+                </div>
+            </div>
+
+            <div class="three wide column"></div>
+
+            <div class="sixteen wide column coleta-table-form">
+                {% if not id %}
+                    <form class="ui form" id="ProjetoForm" method="post" action="{% url 'novo_projeto' %}">
+                {% else %}
+                    <form class="ui form" id="ProjetoForm" method="post" action="{% url 'edita_projeto' id %}">
+                {% endif %}
+
+                {% csrf_token %}
+
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
+
+                <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>Nome</label>
+                        {{ form.nome }}
+                        {% if form.nome.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.nome.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <div class="fields">
+                            <div class="fourteen wide field">
+                                <label>Orientador</label>
+                                {{ form.orientador }}
+                                {% if form.orientador.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.orientador.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="three wide column"></div>
-
-                <div class="sixteen wide column coleta-table-form">
-                    <form class="ui form" id="RequerimentoForm" method="post" enctype="multipart/form-data" action="#">
-
+                <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="eight wide field">
                         <div class="fields">
-                            <div class="four wide field"></div>
-                            <div class="four wide field">
-                                <label>Nome</label>
-                                <input type="text" class=""/>
-                            </div>
-                            <div class="four wide field">
-                                <div class="fields">
-                                    <div class="fourteen wide field">
-                                        <label>Orientador</label>
-                                        <select>
-                                            <option value="">Selecione um orientador...</option>
-                                            <option>Orientador 1</option>
-                                            <option>Orientador 2</option>
-                                            <option>Orientador 3</option>
-                                        </select>
+                            <div class="fifteen wide field">
+                                <label>Integrantes</label>
+                                {{ form.integrantes }}
+                                {% if form.integrantes.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.integrantes.errors }}
                                     </div>
-                                    <div class="two wide field">
-                                        <label>&ensp;</label>
-                                        <a href="{% url 'nova_pessoa' %}" target="_blank"><i
-                                                class="ui plus icon black"></i></a><br/>
-                                        <a href="#" onclick="atualiza_select_local_trabalho('id_local_trabalho')"
-                                           class=""><i class="refresh icon black"></i></a>
-                                    </div>
-                                </div>
+                                {% endif %}
                             </div>
                         </div>
-
-                        <div class="fields">
-                            <div class="four wide field"></div>
-                            <div class="eight wide field">
-                                <div class="fields">
-                                    <div class="fifteen wide field">
-                                        <label>Integrantes</label>
-                                        <select multiple="multiple">
-                                            <option value="">Selecione os integrantes...</option>
-                                            <option value="1">Integrante 1</option>
-                                            <option value="2">Integrante 2</option>
-                                            <option value="3">Integrante 3</option>
-                                        </select>
-                                    </div>
-                                    <div class="one wide field">
-                                        <label>&ensp;</label>
-                                        <a href="{% url 'nova_pessoa' %}" target="_blank"><i
-                                                class="ui plus icon black"></i></a><br/>
-                                        <a href="#" onclick="atualiza_select_local_trabalho('id_local_trabalho')"
-                                           class=""><i class="refresh icon black"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="four wide field"></div>
-                        </div>
-                        <br/>
-
-                        <div class="ui centered grid">
-                            <div class="ui column centered row">
-                                <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
-                                <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                                <a href="{% url 'index' %}" class="ui button red">
-                                    Cancelar
-                                </a>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="four wide field"></div>
                 </div>
+                <br/>
+
+                <div class="ui centered grid">
+                    <div class="ui column centered row">
+                        <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
+                        <a href="{% url 'index' %}" class="ui button red">
+                            Cancelar
+                        </a>
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
     </div>

@@ -5,7 +5,7 @@ from coleta_app.models.pessoa import PessoaModel
 
 class PessoaForm(forms.ModelForm):
     email = forms.EmailField(required=True)
-    turma = forms.CharField(max_length=30, required=True)
+    turma = forms.CharField(max_length=30, required=False)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
 

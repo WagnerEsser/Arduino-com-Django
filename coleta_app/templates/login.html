@@ -1,76 +1,78 @@
 {% extends 'base.html' %}
 
 {% block body %}
+    <div class="ui grid">
 
-    <div class="sixteen wide column centered aligned">
-        {% if msg %}
-            <div class="ui {{ tipo_msg }} message">
-                <div class="header">
-                    {{ msg }}
+        <div class="sixteen wide column centered aligned">
+            {% if msg %}
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
+                    </div>
                 </div>
-            </div>
-        {% endif %}
-    </div>
+            {% endif %}
+        </div>
 
-    <div class="row">
-        <div class="four wide column">
-            <div class="ui segment">
-                <form class="ui large form" action="{% url 'login' %}" method="post">
-                {% csrf_token %}
-                    <div class="field">
-                        <label>Nome de usuário:</label>
-                        <div class="ui left icon input">
-                            <i class="user icon"></i>
-                            {{ form.username }}
-                        </div>
-                        {% if form.username.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.username.errors }}
+        <div class="row">
+            <div class="four wide column">
+                <div class="ui segment">
+                    <form class="ui large form" action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="field">
+                            <label>Nome de usuário:</label>
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                {{ form.username }}
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="field">
-                        <label>Senha:</label>
-                        <div class="ui left icon input">
-                            <i class="lock icon"></i>
-                            {{ form.password }}
+                            {% if form.username.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.username.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="field">
+                            <label>Senha:</label>
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                {{ form.password }}
+                            </div>
+
+                            {% if form.password.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.password.errors }}
+                                </div>
+                            {% endif %}
                         </div>
 
-                        {% if form.password.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.password.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-
-                    <br/>
+                        <br/>
+                        <div class="ui centered grid">
+                            <input type="submit" name="submit" class="ui button blue center" value="Login"/>
+                        </div>
+                        <br/>
+                        <br/>
+                    </form>
                     <div class="ui centered grid">
-                        <input type="submit" name="submit" class="ui button blue center" value="Login" />
+                        <div class="sixteen wide column centered aligned">
+                            <a href="#">Esqueceu sua senha?</a>
+                        </div>
                     </div>
                     <br/>
-                    <br/>
-                </form>
-                <div class="ui centered grid">
-                    <div class="sixteen wide column centered aligned">
-                        <a href="#">Esqueceu sua senha?</a>
-                    </div>
                 </div>
-                <br/>
             </div>
-        </div>
-        <div class="one wide column">
-            <div class="ui vertical divider">
-                <i class="ellipsis vertical icon"></i>
+            <div class="one wide column">
+                <div class="ui vertical divider">
+                    <i class="ellipsis vertical icon"></i>
+                </div>
             </div>
-        </div>
-        <div class="ui eleven wide column segment">
-            <div class="ui grid">
-                <div class="sixteen wide column">
-                    <h1><i class="info circle icon"></i> IFC Coleta</h1>
-                    <section class="coleta-info-texto">
-                        Sistema para coleta de dados dentro da Internet das Coisas
-                    </section>
-                    <br>
+            <div class="ui eleven wide column segment">
+                <div class="ui grid">
+                    <div class="sixteen wide column">
+                        <h1><i class="info circle icon"></i> IFC Coleta</h1>
+                        <section class="coleta-info-texto">
+                            Sistema para coleta de dados dentro da Internet das Coisas
+                        </section>
+                        <br>
+                    </div>
                 </div>
             </div>
         </div>

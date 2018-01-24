@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class PessoaModel(User):
-    turma = models.CharField(max_length=100)
+    turma = models.CharField(max_length=100, blank=True, null=True)
 
     def __unicode__(self):
         return self.get_full_name()

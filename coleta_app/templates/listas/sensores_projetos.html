@@ -2,115 +2,110 @@
 
 {% block body %}
 
-    <div class="ui container coleta-content">
+    <div class="ui centered grid coleta-grid">
+        <div class="ui row segment coleta-segment border-segment">
 
-        <div class="ui centered grid coleta-grid">
-            <div class="ui row segment coleta-segment border-segment">
+            <div class="three wide column">
+                <a href="{% url 'index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
 
-                <div class="three wide column">
-                    <a href="{% url 'index' %}">
-                        <div class="ui labeled icon button basic">
-                            <i class="left arrow icon"></i> Voltar
-                        </div>
+            <div class="ten wide column">
+                <div class="coleta-title-edit-page">
+                    <h1><i class="list icon"></i> Sensores em Utilização</h1>
+                </div>
+            </div>
+
+            <div class="three wide column">
+                <div class="ui right floated buttons">
+                    <a href="{% url 'novo_sensor' %}" class="ui labeled icon button green">
+                        <i class="plus icon"></i> Novo Sensor
                     </a>
                 </div>
-
-                <div class="ten wide column">
-                    <div class="coleta-title-edit-page">
-                        <h1><i class="list icon"></i> Sensores em Utilização</h1>
-                    </div>
-                </div>
-
-                <div class="three wide column">
-                    <div class="ui right floated buttons">
-                        <a href="{% url 'novo_sensor' %}" class="ui labeled icon button green">
-                            <i class="plus icon"></i> Novo Sensor
-                        </a>
-                    </div>
-                </div>
-
-                <table class="ui celled table coleta-table-form">
-                    <thead>
-                    <tr>
-                        <th>Projeto</th>
-                        <th>Sensor</th>
-                        <th>ID Controlador</th>
-                        <th>Unidade de Medida</th>
-                        <th>Local</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Estação Meteorológica</td>
-                        <td>Sensor de Temperatura</td>
-                        <td>#12344365</td>
-                        <td>Celcius</td>
-                        <td>Fábrica de Software</td>
-                    </tr>
-                    <tr>
-                        <td>SIES</td>
-                        <td>Sensor de Temperatura</td>
-                        <td>#654987321</td>
-                        <td>Celcius</td>
-                        <td>Fábrica de Software</td>
-                    </tr>
-                    <tr>
-                        <td>Estação Meteorológica</td>
-                        <td>Sensor de Umidade</td>
-                        <td>#12344365</td>
-                        <td>%</td>
-                        <td>Fábrica de Software</td>
-                    </tr>
-                    <tr>
-                        <td>SIES</td>
-                        <td>Sensor de Umidade</td>
-                        <td>#258741</td>
-                        <td>%</td>
-                        <td>Fábrica de Software</td>
-                    </tr>
-                    <tr>
-                        <td>Estação Meteorológica</td>
-                        <td>Sensor de Pluviosidade</td>
-                        <td>#1598735</td>
-                        <td>mm</td>
-                        <td>Fábrica de Software</td>
-                    </tr>
-                    <tr>
-                        <td>Estação Meteorológica</td>
-                        <td>Anemômetro</td>
-                        <td>#35498221</td>
-                        <td>km/h</td>
-                        <td>Fábrica de Software</td>
-                    </tr>
-                    <tr>
-                        <td>SIES</td>
-                        <td>Sensor de Umidade do Solo</td>
-                        <td>#48324423</td>
-                        <td>%</td>
-                        <td>Fábrica de Software</td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <div class="ui centered grid coleta-pagination">
-                    <div class="ui pagination menu">
-                        <a href="#" class="icon item blue" style="color: #2185d0">Primeira</a>
-
-                        <a href="#" class="icon item"><i class="left arrow icon blue"></i></a>
-
-                        <a href="#" class="icon item">1</a>
-                        <a href="#" class="icon item" style="color: #2185d0">2</a>
-                        <a href="#" class="icon item" style="color: #2185d0">3</a>
-
-                        <a href="#" class="icon item"><i class="right arrow icon blue"></i></a>
-                        <a href="#" class="icon item blue" style="color: #2185d0">Última</a>
-                    </div>
-                </div>
-
-
             </div>
-        </div>
 
+            <table class="ui celled table coleta-table-form">
+                <thead>
+                <tr>
+                    <th>Projeto</th>
+                    <th>Sensor</th>
+                    <th>ID Controlador</th>
+                    <th>Unidade de Medida</th>
+                    <th>Local</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Estação Meteorológica</td>
+                    <td>Sensor de Temperatura</td>
+                    <td>#12344365</td>
+                    <td>Celcius</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>SIES</td>
+                    <td>Sensor de Temperatura</td>
+                    <td>#654987321</td>
+                    <td>Celcius</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>Estação Meteorológica</td>
+                    <td>Sensor de Umidade</td>
+                    <td>#12344365</td>
+                    <td>%</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>SIES</td>
+                    <td>Sensor de Umidade</td>
+                    <td>#258741</td>
+                    <td>%</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>Estação Meteorológica</td>
+                    <td>Sensor de Pluviosidade</td>
+                    <td>#1598735</td>
+                    <td>mm</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>Estação Meteorológica</td>
+                    <td>Anemômetro</td>
+                    <td>#35498221</td>
+                    <td>km/h</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>SIES</td>
+                    <td>Sensor de Umidade do Solo</td>
+                    <td>#48324423</td>
+                    <td>%</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui centered grid coleta-pagination">
+                <div class="ui pagination menu">
+                    <a href="#" class="icon item blue" style="color: #2185d0">Primeira</a>
+
+                    <a href="#" class="icon item"><i class="left arrow icon blue"></i></a>
+
+                    <a href="#" class="icon item">1</a>
+                    <a href="#" class="icon item" style="color: #2185d0">2</a>
+                    <a href="#" class="icon item" style="color: #2185d0">3</a>
+
+                    <a href="#" class="icon item"><i class="right arrow icon blue"></i></a>
+                    <a href="#" class="icon item blue" style="color: #2185d0">Última</a>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 {% endblock %}

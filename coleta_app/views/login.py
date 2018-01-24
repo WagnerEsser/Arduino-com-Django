@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.views.generic.base import View
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
+from coleta_app.views.index import index
 
 
 class LoginView(View):
@@ -45,7 +46,7 @@ class LoginView(View):
 
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
-        return render(request, "index.html", context_dict)
+        return index(request, msg=msg, tipo_msg=tipo_msg)
 
     @classmethod
     def logout(self, request):
