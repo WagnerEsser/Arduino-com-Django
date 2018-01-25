@@ -17,7 +17,8 @@ urlpatterns = [
     # CRUDS
     url(r'^novo_projeto/$', ProjetoView.as_view(), name='novo_projeto'),
     url(r'^edita_projeto/(?P<id>\d+)/$', ProjetoView.as_view(), name='novo_projeto'),
-    url(r'^nova_coleta/$', TemplateView.as_view(template_name='cruds/nova_coleta.html'), name='nova_coleta'),
+    url(r'^nova_coleta/$', ColetaView.as_view(), name='nova_coleta'),
+    url(r'^edita_coleta/(?P<id>\d+)/$', ColetaView.as_view(), name='edita_coleta'),
     url(r'^novo_sensor/$', TemplateView.as_view(template_name='cruds/novo_sensor.html'), name='novo_sensor'),
     url(r'^novo_local/$', TemplateView.as_view(template_name='cruds/novo_local.html'), name='novo_local'),
     url(r'^nova_pessoa/$', PessoaView.as_view(), name='nova_pessoa'),

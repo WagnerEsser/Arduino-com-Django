@@ -67,16 +67,15 @@
                                     <tbody>
 
                                     {% for coleta in coletas %}
-{#                                        {% if coletas.count %}#}
                                         {% if coleta.projeto.id == projeto.id %}
                                             <tr>
                                                 <td># {{ coleta.id }}</td>
                                                 <td># {{ coleta.id_controlador }}</td>
                                                 <td>{{ coleta.contexto }}</td>
                                                 <td>{{ coleta.status }}</td>
-                                                <td><a href="{% url 'coleta' coleta.id %}"><i class="eye icon"></i>
-                                                    Ver
-                                                    coleta</a>
+                                                <td>
+                                                    <a href="{% url 'coleta' coleta.id %}"><i class="eye icon"></i>
+                                                        Ver coleta</a>
                                                 </td>
                                             </tr>
                                         {% endif %}

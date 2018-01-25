@@ -5,7 +5,7 @@ from coleta_app.models.pessoa import PessoaModel
 
 
 class ProjetoForm(forms.ModelForm):
-    orientador = forms.ModelChoiceField(required=False,
+    orientador = forms.ModelChoiceField(required=True,
                                         empty_label="Selecione um orientador",
                                         queryset=PessoaModel.objects.all(),
                                         widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"}))

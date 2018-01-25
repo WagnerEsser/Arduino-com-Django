@@ -5,6 +5,17 @@
     <div class="ui centered grid coleta-grid">
         <div class="ui row segment coleta-segment border-segment">
 
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            {% endif %}
+
             <div class="three wide column">
                 <a href="{% url 'index' %}">
                     <div class="ui labeled icon button basic">
@@ -22,171 +33,96 @@
             <div class="three wide column"></div>
 
             <div class="sixteen wide column coleta-table-form">
-                <form class="ui form" id="RequerimentoForm" method="post" enctype="multipart/form-data" action="#">
+                {% if not id %}
+                    <form class="ui form" id="ColetaForm" method="post" action="{% url 'nova_coleta' %}">
+                {% else %}
+                    <form class="ui form" id="ColetaForm" method="post" action="{% url 'edita_coleta' id %}">
+                {% endif %}
 
-                    <div class="fields">
-                        <div class="four wide field"></div>
-                        <div class="four wide field">
-                            <div class="fields">
-                                <div class="fourteen wide field">
-                                    <label>Projeto</label>
-                                    <select>
-                                        <option value="">Selecione um projeto...</option>
-                                        <option>Projeto 1</option>
-                                        <option>Projeto 2</option>
-                                        <option>Projeto 3</option>
-                                    </select>
-                                </div>
-                                <div class="two wide field">
-                                    <label>&ensp;</label>
-                                    <a href="{% url 'novo_projeto' %}" target="_blank"><i
-                                            class="ui plus icon black"></i></a><br/>
-                                    <a href="#" onclick="atualiza_select_local_trabalho('id_local_trabalho')"
-                                       class=""><i class="refresh icon black"></i></a>
-                                </div>
+                {% csrf_token %}
+
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
+
+                <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>Projeto</label>
+                        {{ form.projeto }}
+                        {% if form.projeto.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.projeto.errors }}
                             </div>
-                        </div>
-                        <div class="four wide field">
-                            <label>Contexto</label>
-                            <input type="text" class="" placeholder="Local/ambiente do sensoriamento..."/>
-                        </div>
-                        <div class="four wide field"></div>
+                        {% endif %}
                     </div>
-                    <div class="fields">
-                        <div class="four wide field"></div>
-                        <div class="four wide field">
-                            <label>ID do Controlador</label>
-                            <input type="text" placeholder="Identificador do controlador..."/>
-                        </div>
-                        <div class="four wide field">
-                            <label>Status</label>
-                            <select>
-                                <option value="">Selecione um status inicial...</option>
-                                <option selected="selected">Ativado</option>
-                                <option>Desativado</option>
-                                <option>Fechado</option>
-                            </select>
-                        </div>
-                        <div class="four wide field"></div>
-                    </div>
-                    <div class="fields">
-                        <div class="four wide field"></div>
-                        <div class="four wide field">
-                            <label>Data inicial do sensoriamento</label>
-                            <input placeholder="DD/MM/AAAA" type="text">
-                        </div>
-                        <div class="four wide field">
-                            <label>Data final do sensoriamento</label>
-                            <input placeholder="DD/MM/AAAA" type="text">
-                        </div>
-                        <div class="four wide column"></div>
-                    </div>
-
-                    <br/>
-                    <div class="ui horizontal divider">
-                        <i class="signal icon"></i>
-                        Sensores
-                    </div>
-                    <br/>
-
-                    <!-- =================================================================== -->
-
-                    <div class="ui grid">
-                        <div class="three wide column"></div>
-                        <div class="ten wide column">
-                            <div class="ui segment border-segment">
-                                <br/>
-                                <div class="fields">
-                                    <div class="one wide field"></div>
-                                    <div class="seven wide field">
-                                        <div class="fields">
-                                            <div class="fourteen wide field">
-                                                <label>Sensor</label>
-                                                <select>
-                                                    <option value="">Selecione um sensor...</option>
-                                                    <option>Umidade</option>
-                                                    <option>Temperatura</option>
-                                                    <option>Presença</option>
-                                                    <option>Pluviosidade</option>
-                                                    <option>Barômetro</option>
-                                                    <option>Anemômetro</option>
-                                                </select>
-                                            </div>
-                                            <div class="two wide field">
-                                                <label>&ensp;</label>
-                                                <a href="{% url 'novo_sensor' %}" target="_blank"><i
-                                                        class="ui plus icon black"></i></a><br/>
-                                                <a href="#"
-                                                   onclick="atualiza_select_local_trabalho('id_local_trabalho')"
-                                                   class=""><i class="refresh icon black"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="seven wide field">
-                                        <label>Unidade de Medida</label>
-                                        <input type="text" class="" placeholder="°C; °F; mL; Km/h; m/s; % ..."/>
-                                    </div>
-                                    <div class="one wide field"></div>
-                                </div>
-                                <div class="fields">
-                                    <div class="four wide field"></div>
-                                    <div class="eight wide field">
-                                        <div class="fields">
-                                            <div class="fourteen wide field">
-                                                <label>Local</label>
-                                                <select>
-                                                    <option value="">Selecione um local...</option>
-                                                    <option>Bloco A</option>
-                                                    <option>Bloco B</option>
-                                                    <option>Bloco C</option>
-                                                    <option>Bloco D</option>
-                                                    <option>Bloco E</option>
-                                                    <option>Estação Meteorológica</option>
-                                                </select>
-                                            </div>
-                                            <div class="two wide field">
-                                                <label>&ensp;</label>
-                                                <a href="{% url 'novo_local' %}" target="_blank"><i
-                                                        class="ui plus icon black"></i></a><br/>
-                                                <a href="#"
-                                                   onclick="atualiza_select_local_trabalho('id_local_trabalho')"
-                                                   class=""><i class="refresh icon black"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="four wide field"></div>
-                                </div>
-                                <br/>
+                    <div class="four wide field">
+                        <label>Contexto</label>
+                        {{ form.contexto }}
+                        {% if form.contexto.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.contexto.errors }}
                             </div>
-                        </div>
-                        <div class="three wide column"></div>
+                        {% endif %}
                     </div>
+                    <div class="four wide field"></div>
+                </div>
+                <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>ID do Controlador</label>
+                        {{ form.id_controlador }}
+                        {% if form.id_controlador.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.id_controlador.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>Status</label>
+                        {{ form.status }}
+                        {% if form.status.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.status.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field"></div>
+                </div>
+                <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>Data inicial do sensoriamento</label>
+                        {{ form.data_inicio }}
+                        {% if form.data_inicio.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.data_inicio.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>Data final do sensoriamento</label>
+                        {{ form.data_fim }}
+                        {% if form.data_fim.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.data_fim.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide column"></div>
+                </div>
 
-                    <!-- =================================================================== -->
-
-                    <br/>
-                    <br/>
-
-                    <div class="ui centered grid">
-                        <a class="ui green button">
-                            <i class="plus icon"></i>
-                            Novo Sensor
+                <div class="ui centered grid">
+                    <div class="ui column centered row">
+                        <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
+                        <a href="{% url 'index' %}" class="ui button red">
+                            Cancelar
                         </a>
                     </div>
-
-                    <br/>
-                    <br/>
-                    <br/>
-
-                    <div class="ui centered grid">
-                        <div class="ui column centered row">
-                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
-                            <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                            <a href="{% url 'index' %}" class="ui button red">
-                                Cancelar
-                            </a>
-                        </div>
-                    </div>
+                </div>
                 </form>
 
             </div>
