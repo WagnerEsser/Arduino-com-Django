@@ -12,6 +12,7 @@ from coleta_app.models.pessoa import PessoaModel
 
 class PessoaView(View):
     template = 'cruds/nova_pessoa.html'
+    template_perfil = 'perfil.html'
 
     def get(self, request, id=None, msg=None, tipo_msg=None):
         context_dict = {}
@@ -71,6 +72,17 @@ class PessoaView(View):
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template, context_dict)
+
+    @classmethod
+    def perfil(self, request, id=None, msg=None, tipo_msg=None):
+        context_dict = {}
+        try:
+            context_dict['pessoa'] = PessoaModel.objects.get(pk=request.user.id)
+        except:
+            raise Http404("Pessoa não encontrada.")
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        return render(request, self.template_perfil, context_dict)
 
     # @classmethod
     # def AtualizaCid(self, request):

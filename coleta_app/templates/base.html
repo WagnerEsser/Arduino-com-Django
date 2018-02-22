@@ -59,6 +59,7 @@
             <a href="{% url 'novo_projeto' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Novo
                 Projeto</a>
             <a href="{% url 'nova_coleta' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Nova Coleta</a>
+            <a href="{% url 'nova_pessoa' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Novo Usuário</a>
             <a href="{% url 'lista_sensores' %}" class="item coleta-icon"><i class="icon large list"></i> &ensp;Sensores</a>
             {% if user.is_superuser %}
                 <a href="{% url 'nova_pessoa' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Nova

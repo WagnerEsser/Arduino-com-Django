@@ -14,7 +14,7 @@ class ColetaModel(models.Model):
     status = models.CharField(max_length=10, choices=CHOICES_STATUS)
     data_inicio = models.CharField(max_length=100)
     data_fim = models.CharField(max_length=100)
-    token = models.CharField(max_length=1000)
+    token = models.CharField(max_length=1000, unique=True)
     projeto = models.ForeignKey(ProjetoModel, null=True, on_delete=models.SET_NULL)
 
     def __unicode__(self):

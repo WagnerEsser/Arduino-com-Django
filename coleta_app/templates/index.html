@@ -5,6 +5,17 @@
     <div class="ui centered grid coleta-grid">
         <div class="ui row segment coleta-segment border-segment">
 
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            {% endif %}
+
             <div class="four wide column">
                 <h1><i class="clone icon"></i> Seus Projetos</h1>
             </div>

@@ -5,70 +5,75 @@
     <div class="ui centered grid coleta-grid">
         <div class="ui row segment coleta-segment border-segment">
 
-            <div class="three wide column">
-                <a href="{% url 'index' %}">
-                    <div class="ui labeled icon button basic">
-                        <i class="left arrow icon"></i> Voltar
-                    </div>
-                </a>
-            </div>
+            <div class="three wide column"></div>
 
             <div class="ten wide column">
                 <div class="coleta-title-edit-page">
-                    <h1><i class="list icon"></i> Sensores</h1>
+                    <h1><i class="list icon"></i> Sensores em Utilização</h1>
                 </div>
             </div>
 
-            <div class="three wide column">
-                <div class="ui right floated vertical buttons">
-                    <a href="{% url 'novo_sensor' %}" class="ui labeled icon button green">
-                        <i class="plus icon"></i> Novo Sensor
-                    </a>
-                    <a href="{% url 'lista_sensores_projetos' %}" class="ui labeled icon button blue">
-                        <i class="list icon"></i> Em utilização
-                    </a>
-                </div>
-            </div>
+            <div class="three wide column"></div>
 
             <table class="ui celled table coleta-table-form">
                 <thead>
                 <tr>
-                    <th>Descrição</th>
-                    <th>Projetos utilizando</th>
+                    <th>Projeto</th>
+                    <th>Sensor</th>
+                    <th>ID Controlador</th>
+                    <th>Unidade de Medida</th>
+                    <th>Local</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Sensor de Temperatura</td>
-                    <td>Estação Meteorológica; SIES</td>
-                </tr>
-                <tr>
-                    <td>Sensor de Umidade</td>
-                    <td>Estação Meteorológica; SIES</td>
-                </tr>
-                <tr>
-                    <td>Sensor de Presença</td>
-                    <td>---</td>
-                </tr>
-                <tr>
-                    <td>Sensor ultrassônico</td>
-                    <td>---</td>
-                </tr>
-                <tr>
-                    <td>Sensor de Pluviosidade</td>
-                    <td>Estação Meteorológica;</td>
-                </tr>
-                <tr>
-                    <td>Sensor de CO²</td>
-                    <td>---</td>
-                </tr>
-                <tr>
-                    <td>Anemômetro</td>
                     <td>Estação Meteorológica</td>
+                    <td>Sensor de Temperatura</td>
+                    <td>#12344365</td>
+                    <td>Celcius</td>
+                    <td>Fábrica de Software</td>
                 </tr>
                 <tr>
-                    <td>Sensor de Umidade do Solo</td>
                     <td>SIES</td>
+                    <td>Sensor de Temperatura</td>
+                    <td>#654987321</td>
+                    <td>Celcius</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>Estação Meteorológica</td>
+                    <td>Sensor de Umidade</td>
+                    <td>#12344365</td>
+                    <td>%</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>SIES</td>
+                    <td>Sensor de Umidade</td>
+                    <td>#258741</td>
+                    <td>%</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>Estação Meteorológica</td>
+                    <td>Sensor de Pluviosidade</td>
+                    <td>#1598735</td>
+                    <td>mm</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>Estação Meteorológica</td>
+                    <td>Anemômetro</td>
+                    <td>#35498221</td>
+                    <td>km/h</td>
+                    <td>Fábrica de Software</td>
+                </tr>
+                <tr>
+                    <td>SIES</td>
+                    <td>Sensor de Umidade do Solo</td>
+                    <td>#48324423</td>
+                    <td>%</td>
+                    <td>Fábrica de Software</td>
                 </tr>
                 </tbody>
             </table>

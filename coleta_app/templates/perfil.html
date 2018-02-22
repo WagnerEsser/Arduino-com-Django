@@ -6,14 +6,25 @@
         <br/>
 
         <div class="ui centered grid">
+
+            <div class="sixteen wide column centered aligned">
+                {% if msg %}
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
             <div class="six wide column">
                 <div class="ui segment center aligned">
                     <h2 class="ui icon header">
                         <i class="circular user icon"></i>
-                        Nome de Usuário
+                        {{ pessoa.get_full_name }}
                     </h2>
-                    <p><i class="mail icon"></i> usuario@email.com</p>
-                    <a class="ui blue button" href="{% url 'edita_perfil' %}">
+                    <p><i class="mail icon"></i> {{ pessoa.email }}</p>
+                    <a class="ui blue button" href="{% url 'edita_pessoa' pessoa.id %}">
                         <i class="edit icon"></i>
                         Editar
                     </a>
