@@ -47,7 +47,8 @@
                                     <th>Tipo de Sensor</th>
                                     <th>Local</th>
                                     <th>Unidade de Medida</th>
-                                    <th>Data e hora</th>
+                                    <th>Data</th>
+                                    <th>Hora</th>
                                     <th>Dado</th>
                                 </tr>
                                 </thead>
@@ -60,7 +61,8 @@
                                         <td>{{ dado.tipo_sensor }}</td>
                                         <td>{{ dado.local }}</td>
                                         <td>{{ dado.unidade_medida }}</td>
-                                        <td>{{ dado.data }} - {{ dado.hora }}</td>
+                                        <td>{{ dado.data }}</td>
+                                        <td>{{ dado.hora }}</td>
                                         <td class="active">{{ dado.dado }}</td>
                                     </tr>
                                 {% endfor %}
