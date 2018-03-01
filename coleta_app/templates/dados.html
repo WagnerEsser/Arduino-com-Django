@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="ui container coleta-content">
+
+        <div class="ui centered grid coleta-grid">
+            <div class="ui row segment coleta-segment border-segment">
+
+                <div class="three wide column"></div>
+
+                <div class="ten wide column">
+                    <div class="coleta-title-edit-page">
+                        <h1><i class="database icon"></i> Dados</h1>
+                        <div class="sub header">
+                            <strong>Coleta:</strong> <a href="{% url 'coleta' id_coleta %}"># {{ id_coleta }}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="three wide column">
+
+                    <div class="sixteen wide column">
+                        <a href="{% url 'download_dados' id_coleta %}" class="ui blue button">
+                            <i class="download icon"></i> Exportar dados
+                        </a>
+                    </div>
+
+                </div>
+
+                {% if dados %}
+
+                    <table class="ui very compact table coleta-table-form">
+                        <thead>
+                        <tr>
+                            <th>Projeto</th>
+                            <th>Orientador</th>
+                            <th>Sensor</th>
+                            <th>Tipo de Sensor</th>
+                            <th>Local</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Unidade de Medida</th>
+                            <th>Dado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for dado in dados %}
+                            <tr>
+                                <td>{{ dado.nome_projeto }}</td>
+                                <td>{{ dado.orientador_projeto }}</td>
+                                <td>{{ dado.sensor }}</td>
+                                <td>{{ dado.tipo_sensor }}</td>
+                                <td>{{ dado.local }}</td>
+                                <td>{{ dado.data }}</td>
+                                <td>{{ dado.hora }}</td>
+                                <td>{{ dado.unidade_medida }}</td>
+                                <td class="active">{{ dado.dado }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% include 'blocos/pagination.html' %}
+
+                {% else %}
+                    <div class="sixteen wide column issem-div-message">
+                        <br/>
+                        <div class="ui yellow message">
+                            <div class="header">
+                                Não existem dados cadastrados
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

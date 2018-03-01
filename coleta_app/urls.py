@@ -21,14 +21,12 @@ urlpatterns = [
     url(r'^nova_pessoa/$', PessoaView.as_view(), name='nova_pessoa'),
     url(r'^edita_pessoa/(?P<id>\d+)/$', PessoaView.as_view(), name='edita_pessoa'),
 
-    # LISTAS
-    url(r'^sensores/$', TemplateView.as_view(template_name='listas/sensores.html'), name='lista_sensores'),
-    url(r'^dados/$', TemplateView.as_view(template_name='listas/dados.html'), name='lista_dados'),
-
     # DEMAIS
+    url(r'^dados/(?P<id>\d+)/$', views.lista_dados, name='lista_dados'),
     url(r'^novo_dado$', views.novo_dado, name='novo_dado'),
     url(r'^coleta/(?P<id>\d+)/$', ColetaView.VisualizarColeta, name='coleta'),
-    url(r'^exportar_dados/$', TemplateView.as_view(template_name='exportar_dados.html'), name='exportar_dados'),
+    url(r'^exportar_dados/(?P<id>\d+)/$', views.exportar_dados, name='exportar_dados'),
+    url(r'^download/(?P<id>\d+)/$', views.download_dados, name='download_dados'),
 
     # 404
     url(r'', TemplateView.as_view(template_name='404.html'), name='404'),

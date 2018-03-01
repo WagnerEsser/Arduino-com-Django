@@ -9,6 +9,8 @@ from django.db.models import Q
 from coleta_app.forms.coleta import ColetaForm
 import binascii
 import os
+
+from coleta_app.views import ColetaView
 from coleta_app.views.index import index
 
 
@@ -116,3 +118,23 @@ def novo_dado(request):
         print(msg)
 
     return index(request, msg, tipo_msg)
+
+
+def lista_dados(request, id=None):
+    context_dict = {}
+
+    context_dict['dados'] = DadosModel.objects.filter(coleta_id=id)
+    context_dict['id_coleta'] = id
+    return render(request, 'dados.html', context_dict)
+
+
+def exportar_dados(request, id=None):
+    context_dict = {'id_coleta': id}
+    return render(request, 'exportar_dados.html', context_dict)
+
+
+def download_dados(request, id=None):
+    msg="Download feito"
+    tipo_msg='green'
+
+    return ColetaView.VisualizarColeta(request, id=id, msg=msg, tipo_msg=tipo_msg)

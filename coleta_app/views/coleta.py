@@ -12,7 +12,7 @@ import os
 
 
 class ColetaView(View):
-    template = 'cruds/nova_coleta.html'
+    template = 'cruds/coleta.html'
     template_view = 'coleta.html'
 
     def get(self, request, id=None, msg=None, tipo_msg=None):
@@ -131,11 +131,14 @@ class ColetaView(View):
     #     return self.ListaCids(request, msg, tipo_msg)
 
     @classmethod
-    def VisualizarColeta(self, request, id=None):
+    def VisualizarColeta(self, request, id=None, msg=None, tipo_msg=None):
         context_dict = {}
         try:
             context_dict['coleta'] = ColetaModel.objects.get(pk=id)
         except:
             raise Http404("Coleta não encontrada.")
+
         context_dict['dados'] = DadosModel.objects.filter(coleta_id=id)[:10]
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template_view, context_dict)
