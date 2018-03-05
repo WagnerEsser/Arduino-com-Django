@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="ui row segment coleta-segment border-segment">
+
+        {% if msg %}
+            <div class="sixteen wide column coleta-div-message">
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
+                    </div>
+                </div>
+                <br/>
+            </div>
+        {% endif %}
+
+        <br/>
+        <div class="ui grid">
+            <div class="left floated four wide column">
+            </div>
+            <div class="coleta-title-edit-page">
+                <h1 class="ui header">
+                    <i class="key icon"></i>
+                    <div class="content">
+                        Alteração de senha
+                    </div>
+                    <h4><i class="user icon"></i>Nome: {{ pessoa.get_full_name }}</h4>
+                </h1>
+            </div>
+            <div class="right floated four wide column"></div>
+        </div>
+        <br/>
+        <br/>
+
+        <form class="ui form" id="EditaSenhaForm" method="post"
+              action="{% url 'edita_senha' pessoa.id %}">
+            {% csrf_token %}
+
+            <div class="fields">
+                <div class="six wide field"></div>
+                <div class="four wide field">
+                    <label>Senha<i class="asterisk icon red"></i></label>
+                    {{ form.password }}
+                    {% if form.password.errors %}
+                        <div class="ui pointing red basic label coleta-error-field">
+                            {{ form.password.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="six wide field"></div>
+            </div>
+            <div class="fields">
+                <div class="six wide field"></div>
+                <div class="four wide field">
+                    <label>Confirme sua senha<i class="asterisk icon red"></i></label>
+                    {{ form.password_checker }}
+                    {% if form.password_checker.errors %}
+                        <div class="ui pointing red basic label coleta-error-field">
+                            {{ form.password_checker.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="six wide field"></div>
+            </div>
+
+            {% include 'blocos/buttons_form.html' %}
+            <br/>
+        </form>
+
+        <div class="three wide column"></div>
+    </div>
+
+{% endblock %}

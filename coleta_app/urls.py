@@ -5,6 +5,7 @@ from coleta_app.views.login import LoginView
 from coleta_app.views.coleta import ColetaView
 from coleta_app.views.pessoa import PessoaView
 from coleta_app.views.projeto import ProjetoView
+from coleta_app.views.edita_senha import EditaSenhaView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -13,13 +14,16 @@ urlpatterns = [
     url(r'^logout/', LoginView.logout, name='logout'),
     url(r'^perfil/$', PessoaView.perfil, name='perfil'),
 
+    # REFERENTE A USUÁRIO
+    url(r'^nova_pessoa/$', PessoaView.as_view(), name='nova_pessoa'),
+    url(r'^edita_pessoa/(?P<id>\d+)/$', PessoaView.as_view(), name='edita_pessoa'),
+    url(r'^edita/senha/(?P<id>\d+)/$', EditaSenhaView.as_view(), name='edita_senha'),
+
     # CRUDS
     url(r'^novo_projeto/$', ProjetoView.as_view(), name='novo_projeto'),
     url(r'^edita_projeto/(?P<id>\d+)/$', ProjetoView.as_view(), name='edita_projeto'),
     url(r'^nova_coleta/$', ColetaView.as_view(), name='nova_coleta'),
     url(r'^edita_coleta/(?P<id>\d+)/$', ColetaView.as_view(), name='edita_coleta'),
-    url(r'^nova_pessoa/$', PessoaView.as_view(), name='nova_pessoa'),
-    url(r'^edita_pessoa/(?P<id>\d+)/$', PessoaView.as_view(), name='edita_pessoa'),
 
     # DEMAIS
     url(r'^dados/(?P<id>\d+)/$', views.lista_dados, name='lista_dados'),
