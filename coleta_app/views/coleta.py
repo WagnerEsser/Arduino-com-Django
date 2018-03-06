@@ -31,7 +31,7 @@ class ColetaView(View):
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template, context_dict)
 
-    def post(self, request, msg=None, tipo_msg=None):
+    def post(self, request, id=None, msg=None, tipo_msg=None):
         context_dict = {}
 
         valido = False
@@ -41,9 +41,14 @@ class ColetaView(View):
                 coleta = ColetaModel.objects.get(pk=id)
             except:
                 raise Http404("Coleta não encontrada.")
-            form = ColetaForm(instance=coleta)
+            form = ColetaForm(instance=coleta, data=request.POST)
             if form.is_valid():
-                form.save()
+                ColetaModel.objects.filter(pk=id).update(id_controlador=request.POST['id_controlador'],
+                                                         contexto=request.POST['contexto'],
+                                                         status=request.POST['status'],
+                                                         data_inicio=request.POST['data_inicio'],
+                                                         data_fim=request.POST['data_fim'],
+                                                         projeto=request.POST['projeto'])
                 msg = 'Alterações realizadas com sucesso!'
                 tipo_msg = 'green'
                 valido = True
