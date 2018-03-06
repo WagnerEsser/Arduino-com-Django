@@ -1,11 +1,7 @@
 # coding:utf-8
 from django.http import Http404
-from django.shortcuts import render, HttpResponse
-from django.core import serializers
-from coleta_app.models.coleta import ColetaModel
-from coleta_app.models.dados import DadosModel
+from django.shortcuts import render
 from django.views.generic.base import View
-from django.db.models import Q
 from coleta_app.forms.pessoa import PessoaCadForm, PessoaEditForm
 from coleta_app.models.pessoa import PessoaModel
 
@@ -44,7 +40,6 @@ class PessoaView(View):
                 raise Http404("Pessoa não encontrada.")
             form = PessoaEditForm(instance=pessoa, data=request.POST)
             if form.is_valid():
-                # form.save()
                 PessoaModel.objects.filter(pk=id).update(first_name=request.POST['first_name'],
                                                          last_name=request.POST['last_name'],
                                                          turma=request.POST['turma'],

@@ -1,16 +1,7 @@
 # coding:utf-8
-from django.http import Http404
-from django.shortcuts import render, HttpResponse
-from django.core import serializers
+from django.shortcuts import render
 from coleta_app.models.coleta import ColetaModel
 from coleta_app.models.dados import DadosModel
-from django.views.generic.base import View
-from django.db.models import Q
-from coleta_app.forms.coleta import ColetaForm
-import binascii
-import os
-from coleta_app.views.pagination import pagination
-
 from coleta_app.views import ColetaView
 from coleta_app.views.index import index
 
@@ -39,72 +30,77 @@ def novo_dado(request):
                 print("ID da coleta: ")
                 print(coleta.id)
 
-                nome_projeto = coleta.projeto.nome
-                orientador_projeto = coleta.projeto.orientador.get_full_name()
-                dado = request.GET['dado']
+                if coleta.status != "Desativado" and coleta.status != "Fechado":
+                    nome_projeto = coleta.projeto.nome
+                    orientador_projeto = coleta.projeto.orientador.get_full_name()
+                    dado = request.GET['dado']
 
-                if 'local' in request.GET:
-                    print("Local: ")
-                    print(request.GET['local'])
-                    local = request.GET['local']
+                    if 'local' in request.GET:
+                        print("Local: ")
+                        print(request.GET['local'])
+                        local = request.GET['local']
+                    else:
+                        local = ""
+
+                    if 'data' in request.GET:
+                        print("Data: ")
+                        print(request.GET['data'])
+                        data = request.GET['data']
+                    else:
+                        data = ""
+
+                    if 'hora' in request.GET:
+                        print("Hora: ")
+                        print(request.GET['hora'])
+                        hora = request.GET['hora']
+                    else:
+                        hora = ""
+
+                    if 'sensor' in request.GET:
+                        print("Sensor: ")
+                        print(request.GET['sensor'])
+                        sensor = request.GET['sensor']
+                    else:
+                        sensor = ""
+
+                    if 'tipo_sensor' in request.GET:
+                        print("Tipo do sensor: ")
+                        print(request.GET['tipo_sensor'])
+                        tipo_sensor = request.GET['tipo_sensor']
+                    else:
+                        tipo_sensor = ""
+
+                    if 'unidade_medida' in request.GET:
+                        print("Unidade de medida: ")
+                        print(request.GET['unidade_medida'])
+                        unidade_medida = request.GET['unidade_medida']
+                    else:
+                        unidade_medida = ""
+
+                    try:
+                        DadosModel.objects.create(nome_projeto=nome_projeto,
+                                                  orientador_projeto=orientador_projeto,
+                                                  coleta_id=coleta.id,
+                                                  contexto=coleta.contexto,
+                                                  local=local,
+                                                  data=data,
+                                                  hora=hora,
+                                                  sensor=sensor,
+                                                  tipo_sensor=tipo_sensor,
+                                                  dado=dado,
+                                                  unidade_medida=unidade_medida,
+                                                  id_controlador=coleta.id_controlador,
+                                                  )
+                        msg = "Nova requisição chegou --> Dados gravados com sucesso"
+                        tipo_msg = 'green'
+                    except:
+                        msg = "Nova requisição chegou --> ERRO! Os dados não foram gravados"
+                        tipo_msg = 'red'
+                    print(msg)
                 else:
-                    local = ""
-
-                if 'data' in request.GET:
-                    print("Data: ")
-                    print(request.GET['data'])
-                    data = request.GET['data']
-                else:
-                    data = ""
-
-                if 'hora' in request.GET:
-                    print("Hora: ")
-                    print(request.GET['hora'])
-                    hora = request.GET['hora']
-                else:
-                    hora = ""
-
-                if 'sensor' in request.GET:
-                    print("Sensor: ")
-                    print(request.GET['sensor'])
-                    sensor = request.GET['sensor']
-                else:
-                    sensor = ""
-
-                if 'tipo_sensor' in request.GET:
-                    print("Tipo do sensor: ")
-                    print(request.GET['tipo_sensor'])
-                    tipo_sensor = request.GET['tipo_sensor']
-                else:
-                    tipo_sensor = ""
-
-                if 'unidade_medida' in request.GET:
-                    print("Unidade de medida: ")
-                    print(request.GET['unidade_medida'])
-                    unidade_medida = request.GET['unidade_medida']
-                else:
-                    unidade_medida = ""
-
-                try:
-                    DadosModel.objects.create(nome_projeto=nome_projeto,
-                                              orientador_projeto=orientador_projeto,
-                                              coleta_id=coleta.id,
-                                              contexto=coleta.contexto,
-                                              local=local,
-                                              data=data,
-                                              hora=hora,
-                                              sensor=sensor,
-                                              tipo_sensor=tipo_sensor,
-                                              dado=dado,
-                                              unidade_medida=unidade_medida,
-                                              id_controlador=coleta.id_controlador,
-                                              )
-                    msg = "Nova requisição chegou --> Dados gravados com sucesso"
-                    tipo_msg = 'green'
-                except:
-                    msg = "Nova requisição chegou --> ERRO! Os dados não foram gravados"
-                    tipo_msg = 'red'
-                print(msg)
+                    msg = "A coleta não está aberta para recepção de novos dados."
+                    tipo_msg = "red"
+                    print(msg)
             else:
                 msg = "Não foi encontrado o dado coletado."
                 tipo_msg = "red"
@@ -129,19 +125,13 @@ def lista_dados(request, id=None):
     context_dict['next_page'] = 2
     bd_dados = DadosModel.objects.filter(coleta_id=id)
     context_dict['last_page'] = int(len(bd_dados)/qtd_por_pagina+1)
-    if request.GET and 'page' in request.GET:
-        if request.GET.get('page') != "":
-            page = int(request.GET.get('page'))
-            if page != 0:
-                limit_inicio = page*qtd_por_pagina-qtd_por_pagina
-                limit_fim = page*qtd_por_pagina
-                dados = list(bd_dados)[limit_inicio:limit_fim]
-                context_dict['previous_page'] = page-1
-                context_dict['next_page'] = page+1
-            else:
-                dados = bd_dados[0:qtd_por_pagina]
-        else:
-            dados = bd_dados[0:qtd_por_pagina]
+    if (request.GET and 'page' in request.GET) and (request.GET.get('page') != "") and (int(request.GET.get('page')) != 0):
+        page = int(request.GET.get('page'))
+        limit_inicio = page*qtd_por_pagina-qtd_por_pagina
+        limit_fim = page*qtd_por_pagina
+        dados = list(bd_dados)[limit_inicio:limit_fim]
+        context_dict['previous_page'] = page-1
+        context_dict['next_page'] = page+1
     else:
         dados = bd_dados[0:qtd_por_pagina]
 

@@ -1,11 +1,9 @@
 # coding:utf-8
 from django.http import Http404
-from django.shortcuts import render, HttpResponse
-from django.core import serializers
+from django.shortcuts import render
 from coleta_app.models.coleta import ColetaModel
 from coleta_app.models.dados import DadosModel
 from django.views.generic.base import View
-from django.db.models import Q
 from coleta_app.forms.coleta import ColetaForm
 import binascii
 import os
