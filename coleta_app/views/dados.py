@@ -9,6 +9,7 @@ from django.db.models import Q
 from coleta_app.forms.coleta import ColetaForm
 import binascii
 import os
+from coleta_app.views.pagination import pagination
 
 from coleta_app.views import ColetaView
 from coleta_app.views.index import index
@@ -122,10 +123,31 @@ def novo_dado(request):
 
 def lista_dados(request, id=None):
     context_dict = {}
+    qtd_por_pagina = 10
 
-    context_dict['dados'] = DadosModel.objects.filter(coleta_id=id)
+    context_dict['previous_page'] = 1
+    context_dict['next_page'] = 2
+    bd_dados = DadosModel.objects.filter(coleta_id=id)
+    context_dict['last_page'] = int(len(bd_dados)/qtd_por_pagina+1)
+    if request.GET and 'page' in request.GET:
+        if request.GET.get('page') != "":
+            page = int(request.GET.get('page'))
+            if page != 0:
+                limit_inicio = page*qtd_por_pagina-qtd_por_pagina
+                limit_fim = page*qtd_por_pagina
+                dados = list(bd_dados)[limit_inicio:limit_fim]
+                context_dict['previous_page'] = page-1
+                context_dict['next_page'] = page+1
+            else:
+                dados = bd_dados[0:qtd_por_pagina]
+        else:
+            dados = bd_dados[0:qtd_por_pagina]
+    else:
+        dados = bd_dados[0:qtd_por_pagina]
+
+    context_dict['dados'] = dados
     context_dict['id_coleta'] = id
-    return render(request, 'dados.html', context_dict)
+    return render(request, "dados.html", context_dict)
 
 
 def exportar_dados(request, id=None):

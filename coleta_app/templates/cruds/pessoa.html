@@ -29,7 +29,10 @@
             </div>
 
             <div class="three wide column">
-                <a href="{% url 'edita_senha' id %}" class="ui black button"><i class="key icon"></i> Editar senha</a>
+                {% if id %}
+                    <a href="{% url 'edita_senha' id %}" class="ui black button"><i class="key icon"></i> Editar
+                        senha</a>
+                {% endif %}
             </div>
 
             <div class="sixteen wide column coleta-table-form">
@@ -94,17 +97,40 @@
                 </div>
 
                 <div class="fields">
-                    <div class="six wide field"></div>
-                    <div class="four wide field">
-                        <label>Nome de usuário</label>
-                        {{ form.username }}
-                        {% if form.username.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.username.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="six wide field"></div>
+                    {% if id %}
+                        <div class="six wide field"></div>
+                        <div class="four wide field">
+                            <label>Nome de usuário</label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.username.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="six wide field"></div>
+                    {% else %}
+                        <div class="four wide field"></div>
+                        <div class="four wide field">
+                            <label>Nome de usuário</label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.username.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="four wide field">
+                            <label>Senha</label>
+                            {{ form.password }}
+                            {% if form.password.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.password.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="four wide field"></div>
+                    {% endif %}
                 </div>
                 <br/>
 

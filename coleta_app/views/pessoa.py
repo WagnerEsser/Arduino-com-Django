@@ -6,7 +6,7 @@ from coleta_app.models.coleta import ColetaModel
 from coleta_app.models.dados import DadosModel
 from django.views.generic.base import View
 from django.db.models import Q
-from coleta_app.forms.pessoa import PessoaForm
+from coleta_app.forms.pessoa import PessoaCadForm, PessoaEditForm
 from coleta_app.models.pessoa import PessoaModel
 
 
@@ -22,10 +22,10 @@ class PessoaView(View):
                 pessoa = PessoaModel.objects.get(pk=id)
             except:
                 raise Http404("Pessoa não encontrada.")
-            form = PessoaForm(instance=pessoa)
+            form = PessoaEditForm(instance=pessoa)
         else:  # MODO CADASTRO: recebe o formulário vazio
-            form = PessoaForm()
-        #
+            form = PessoaCadForm()
+
         context_dict['form'] = form
         context_dict['id'] = id
         context_dict['msg'] = msg
@@ -42,7 +42,7 @@ class PessoaView(View):
                 pessoa = PessoaModel.objects.get(pk=id)
             except:
                 raise Http404("Pessoa não encontrada.")
-            form = PessoaForm(instance=pessoa, data=request.POST)
+            form = PessoaEditForm(instance=pessoa, data=request.POST)
             if form.is_valid():
                 # form.save()
                 PessoaModel.objects.filter(pk=id).update(first_name=request.POST['first_name'],
@@ -55,7 +55,7 @@ class PessoaView(View):
                 valido = True
         else:  # CADASTRO NOVO
             id = None
-            form = PessoaForm(data=request.POST)
+            form = PessoaCadForm(data=request.POST)
             if form.is_valid():
                 user = form.save(commit=False)
                 print(user.password)
@@ -64,7 +64,7 @@ class PessoaView(View):
                 user.save()
                 msg = 'Pessoa cadastrada com sucesso!'
                 tipo_msg = 'green'
-                form = PessoaForm()
+                form = PessoaCadForm()
                 valido = True
 
         if not valido:
