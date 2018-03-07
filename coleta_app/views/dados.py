@@ -1,9 +1,13 @@
 # coding:utf-8
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+
 from coleta_app.models.coleta import ColetaModel
 from coleta_app.models.dados import DadosModel
 from coleta_app.views import ColetaView
 from coleta_app.views.index import index
+from django.http import HttpResponse
 
 
 def novo_dado(request):
@@ -145,8 +149,34 @@ def exportar_dados(request, id=None):
     return render(request, 'exportar_dados.html', context_dict)
 
 
-def download_dados(request, id=None):
-    msg="Download feito"
-    tipo_msg='green'
+def download_dados(request, opcao=None, id=None):
+    opcao = int(opcao)
+    # opções:
+    # 1 - csv;
+    # 2 - json;
+    # 3 - txt;
+    # 4 - xml
 
-    return ColetaView.VisualizarColeta(request, id=id, msg=msg, tipo_msg=tipo_msg)
+    response = HttpResponseRedirect(reverse('index'))
+
+    if opcao == 1:
+        import csv
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(['Nome do projeto', 'Orientador do projeto', 'Contexto', 'Local',
+                         'Data', 'Hora', 'Sensor', 'Tipo do sensor', 'ID do controlador',
+                         'Unidade de medida', 'Dado'])
+
+        dados = DadosModel.objects.filter(coleta_id=id)
+        for dado in dados:
+            writer.writerow([dado.nome_projeto, dado.orientador_projeto, dado.contexto,
+                             dado.local, dado.data, dado.hora, dado.sensor, dado.tipo_sensor,
+                             dado.id_controlador, dado.unidade_medida, dado.dado])
+
+    # if opcao == 2:
+
+
+    return response

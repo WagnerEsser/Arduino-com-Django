@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^novo_dado$', views.novo_dado, name='novo_dado'),
     url(r'^coleta/(?P<id>\d+)/$', ColetaView.VisualizarColeta, name='coleta'),
     url(r'^exportar_dados/(?P<id>\d+)/$', views.exportar_dados, name='exportar_dados'),
-    url(r'^download/(?P<id>\d+)/$', views.download_dados, name='download_dados'),
+    url(r'^download/(?P<opcao>\d+)/(?P<id>\d+)/$', views.download_dados, name='download_dados'),
 
     # 404
     url(r'', TemplateView.as_view(template_name='404.html'), name='404'),
