@@ -8,6 +8,7 @@ from coleta_app.models.dados import DadosModel
 from coleta_app.views import ColetaView
 from coleta_app.views.index import index
 from django.http import HttpResponse
+from coleta_app.admin import DadosResource
 
 
 def novo_dado(request):
@@ -152,31 +153,39 @@ def exportar_dados(request, id=None):
 def download_dados(request, opcao=None, id=None):
     opcao = int(opcao)
     # opções:
-    # 1 - csv;
-    # 2 - json;
-    # 3 - txt;
-    # 4 - xml
+    # 1 - CSV
+    # 2 - JSON
+    # 3 - HTML
+    # 4 - XLS
+    # 5 - ODS
 
     response = HttpResponseRedirect(reverse('index'))
 
+    dataset = DadosResource().export()
+
+    # CSV
     if opcao == 1:
-        import csv
+        response = HttpResponse(dataset.csv, content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="dados.csv"'
 
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+    # JSON
+    if opcao == 2:
+        response = HttpResponse(dataset.json, content_type='application/json')
+        response['Content-Disposition'] = 'attachment; filename="dados.json"'
 
-        writer = csv.writer(response)
-        writer.writerow(['Nome do projeto', 'Orientador do projeto', 'Contexto', 'Local',
-                         'Data', 'Hora', 'Sensor', 'Tipo do sensor', 'ID do controlador',
-                         'Unidade de medida', 'Dado'])
+    # HTML
+    if opcao == 3:
+        response = HttpResponse(dataset.html, content_type='text/html')
+        response['Content-Disposition'] = 'attachment; filename="dados.html"'
 
-        dados = DadosModel.objects.filter(coleta_id=id)
-        for dado in dados:
-            writer.writerow([dado.nome_projeto, dado.orientador_projeto, dado.contexto,
-                             dado.local, dado.data, dado.hora, dado.sensor, dado.tipo_sensor,
-                             dado.id_controlador, dado.unidade_medida, dado.dado])
+    # XLS
+    if opcao == 4:
+        response = HttpResponse(dataset.xls, content_type='application/ms-excel')
+        response['Content-Disposition'] = 'attachment; filename="dados.xls"'
 
-    # if opcao == 2:
-
+    # ODS
+    if opcao == 5:
+        response = HttpResponse(dataset.ods, content_type='application/vnd.oasis.opendocument.spreadsheet')
+        response['Content-Disposition'] = 'attachment; filename="dados.ods"'
 
     return response
