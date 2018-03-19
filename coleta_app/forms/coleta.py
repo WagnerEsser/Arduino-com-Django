@@ -13,12 +13,6 @@ class ColetaForm(forms.ModelForm):
     id_controlador = forms.CharField(max_length=100)
     data_inicio = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
     data_fim = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
-    status_choices = ['Ativado', 'Desativado', 'Fechado']
-    # status = forms.ModelChoiceField(required=True,
-    #                                 empty_label="Selecione um status",
-    #                                 queryset=status_choices,
-    #                                 widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
-    #                                 )
 
     class Meta:
         model = ColetaModel

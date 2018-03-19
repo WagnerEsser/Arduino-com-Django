@@ -1,0 +1,28 @@
+
+#TODO
+- corrigir erro de alteração de senha
+- edição de projeto - edição dos integrantes do projeto
+- aplicar filtro por coleta na exportação dos dados
+
+
+=> URl para teste de envio de dados:
+http://localhost:8000/coleta/novo_dado?local=fabrica&hora=19:00&token=b%278d20e7107b%27&dado=15&data=15/02/2018&unidade_medida=ºC&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+
+========== EXEMPLOS DE DADOS
+
+localhost:8000/coleta/novo_dado?local=janela&hora=15:00&token=b'0d10fbf8a3'&dado=25&data=15/02/2018&unidade_medida=ºC&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=janela&hora=15:10&token=b'0d10fbf8a3'&dado=25&data=15/02/2018&unidade_medida=ºC&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=janela&hora=15:20&token=b'0d10fbf8a3'&dado=26&data=15/02/2018&unidade_medida=ºC&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=janela&hora=15:30&token=b'0d10fbf8a3'&dado=26&data=15/02/2018&unidade_medida=ºC&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=janela&hora=15:40&token=b'0d10fbf8a3'&dado=26&data=15/02/2018&unidade_medida=ºC&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=janela&hora=15:50&token=b'0d10fbf8a3'&dado=27&data=15/02/2018&unidade_medida=ºC&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=janela&hora=16:00&token=b'0d10fbf8a3'&dado=27&data=15/02/2018&unidade_medida=ºC&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+
+localhost:8000/coleta/novo_dado?local=mesa+3&hora=17:30&token=b'0d10fbf8a3'&dado=85&data=01/03/2018&unidade_medida=%&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=mesa+3&hora=17:30&token=b'0d10fbf8a3'&dado=95&data=02/03/2018&unidade_medida=%&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=mesa+3&hora=17:30&token=b'0d10fbf8a3'&dado=88&data=03/03/2018&unidade_medida=%&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=mesa+3&hora=17:30&token=b'0d10fbf8a3'&dado=79&data=04/03/2018&unidade_medida=%&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=mesa+3&hora=17:30&token=b'0d10fbf8a3'&dado=98&data=05/03/2018&unidade_medida=%&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=mesa+3&hora=17:30&token=b'0d10fbf8a3'&dado=94&data=06/03/2018&unidade_medida=%&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=mesa+3&hora=17:30&token=b'0d10fbf8a3'&dado=90&data=07/03/2018&unidade_medida=%&sensor=dht-22&tipo_sensor=temperatura+e+umidade
+localhost:8000/coleta/novo_dado?local=mesa+3&hora=17:30&token=b'0d10fbf8a3'&dado=88&data=08/03/2018&unidade_medida=%&sensor=dht-22&tipo_sensor=temperatura+e+umidade

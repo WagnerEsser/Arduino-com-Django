@@ -11,7 +11,7 @@ from coleta_app.models.pessoa import PessoaModel
 
 
 class ProjetoView(View):
-    template = 'cruds/novo_projeto.html'
+    template = 'cruds/projeto.html'
 
     def get(self, request, id=None, msg=None, tipo_msg=None):
         context_dict = {}
@@ -31,7 +31,7 @@ class ProjetoView(View):
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template, context_dict)
 
-    def post(self, request, msg=None, tipo_msg=None):
+    def post(self, request, id=None, msg=None, tipo_msg=None):
         context_dict = {}
 
         valido = False
@@ -43,7 +43,16 @@ class ProjetoView(View):
                 raise Http404("Projeto não encontrado.")
             form = ProjetoForm(instance=pessoa, data=request.POST)
             if form.is_valid():
-                form.save()
+                projeto = ProjetoModel.objects.filter(pk=id).update(
+                    nome=request.POST['nome'],
+                    orientador=request.POST['orientador']
+                )
+                objects = Pessoa_Projeto.objects.all(projeto=projeto)
+                # for integrante in form.cleaned_data['integrantes']:
+                #     pessoa_projeto = Pessoa_Projeto()
+                #     pessoa_projeto.pessoa = integrante
+                #     pessoa_projeto.projeto = projeto
+                #     pessoa_projeto.save()
                 msg = 'Alterações realizadas com sucesso!'
                 tipo_msg = 'green'
                 valido = True
@@ -59,7 +68,6 @@ class ProjetoView(View):
                     pessoa_projeto = Pessoa_Projeto()
                     pessoa_projeto.pessoa = integrante
                     pessoa_projeto.projeto = projeto
-                    pessoa_projeto.data_inicio = datetime.now().date()
                     pessoa_projeto.save()
                 msg = 'Projeto cadastrado com sucesso!'
                 tipo_msg = 'green'
@@ -75,14 +83,4 @@ class ProjetoView(View):
         context_dict['id'] = id
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
-        return render(request, self.template, context_dict)
-
-    @classmethod
-    def VisualizarColeta(self, request, id=None):
-        context_dict = {}
-        try:
-            context_dict['coleta'] = ColetaModel.objects.get(pk=id)
-        except:
-            raise Http404("Coleta não encontrada.")
-        context_dict['dados'] = DadosModel.objects.filter(coleta_id=id)[:10]
         return render(request, self.template, context_dict)

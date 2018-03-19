@@ -20,7 +20,11 @@
 
             <div class="ten wide column">
                 <div class="coleta-title-edit-page">
-                    <h1><i class="plus icon"></i> Novo Projeto</h1>
+                    {% if not id %}
+                        <h1><i class="plus icon"></i> Novo Projeto</h1>
+                    {% else %}
+                        <h1><i class="pencil icon"></i> Editar Projeto</h1>
+                    {% endif %}
                 </div>
                 <div class="ui grid centered info message">
                     Inicialmente verifique se o orientador e todos os integrantes estão cadastrados no sistema, <br/>
@@ -88,17 +92,8 @@
                     </div>
                     <div class="four wide field"></div>
                 </div>
-                <br/>
 
-                <div class="ui centered grid">
-                    <div class="ui column centered row">
-                        <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                        <a href="{% url 'index' %}" class="ui button red">
-                            Cancelar
-                        </a>
-                    </div>
-                </div>
+                {% include 'blocos/buttons_form.html' %}
                 </form>
             </div>
         </div>

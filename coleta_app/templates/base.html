@@ -60,10 +60,6 @@
                 Projeto</a>
             <a href="{% url 'nova_coleta' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Nova Coleta</a>
             <a href="{% url 'nova_pessoa' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Novo Usuário</a>
-            {% if user.is_superuser %}
-                <a href="{% url 'nova_pessoa' %}" class="item coleta-icon"><i class="icon large plus"></i> &ensp;Nova
-                    pessoa</a>
-            {% endif %}
 
             <div class="right menu">
                 <div class="ui pointing dropdown link item">

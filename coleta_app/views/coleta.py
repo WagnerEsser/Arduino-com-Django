@@ -85,7 +85,7 @@ class ColetaView(View):
         except:
             raise Http404("Coleta não encontrada.")
 
-        context_dict['dados'] = DadosModel.objects.filter(coleta_id=id)[:10]
+        context_dict['dados'] = DadosModel.objects.filter(coleta_id=id)[:5]
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template_view, context_dict)

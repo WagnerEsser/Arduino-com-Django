@@ -24,8 +24,6 @@ class ProjetoModel(models.Model):
 class Pessoa_Projeto(models.Model):
     projeto = models.ForeignKey(ProjetoModel, null=True, on_delete=models.SET_NULL)
     pessoa = models.ForeignKey(PessoaModel, null=True, on_delete=models.SET_NULL)
-    data_inicio = models.DateField()
-    data_fim = models.DateField(null=True, blank=True)
 
     def __unicode__(self):
         return self.pessoa.get_full_name() + " - " + self.projeto.nome
